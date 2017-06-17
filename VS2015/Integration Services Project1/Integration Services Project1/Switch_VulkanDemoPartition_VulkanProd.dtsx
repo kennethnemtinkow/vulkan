@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="06/15/2017 18:27:57" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="VulkanDemoProd" DTS:CreatorName="kennem" DTS:DTSID="{48AD87FD-E516-4F1A-8EF2-BD4023A19213}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="Switch_VulkanDemoPartition_VulkanProd" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{DAF76D66-9B87-44DC-AB2B-CD3ACCC18042}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{68923FBB-0E58-44E6-A239-2BB7C6E93053}" DTS:ObjectName="VulkanDemoTest.VulkanProd" DTS:refId="Package.ConnectionManagers[VulkanDemoTest.VulkanProd]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoTest;initial catalog=VulkanProd;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{76241541-57C0-455C-80AB-E08DBAEBDA99}" DTS:ObjectName="DBConnection.PartitionConfigServer" DTS:refId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoProd;initial catalog=VulkanConfig;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{C14FD4AE-48DE-4A1E-A0FC-819F559037CA}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CreateIndex">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{742B4B6D-046B-4E83-B580-23E6A3B21DDF}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CreateTable">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A052D453-62F4-487B-8172-E55B501ABEBE}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentFileGroup">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B44A8D38-E363-46F7-87FB-986C738EA044}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="PartionNumber">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3F8F2C2F-3D3A-4525-AFB4-52A7E7C47DEC}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="ReturnValue">
+      <DTS:VariableValue DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{67B186BE-91BD-468C-8DC4-1DDDA39738CC}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="Table">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{268A17A4-5BC5-410D-AE37-138DFD4D0C56}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="Tables">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{08FA8C19-B79A-4620-8D75-61ACA5A32514}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="Schema">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F2CAB303-869A-4C48-B8E8-B98DFB020F36}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="DropIndexScripts">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{634497B4-5157-4B30-9ADE-773006DF82E0}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentDropIndexScript">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{796E16EC-8A9A-4FCB-94A7-814C70EE9015}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{31B9A2C2-03E5-4FBF-BD83-0783CD8CD431}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fill Drop Index Scripts Variable" DTS:refId="Package\Pakkens innhold\Fill Drop Index Scripts Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_Rowset" SQLTask:SqlStatementSource="&#xA;        &#xA;          DECLARE @SubSystem NVARCHAR(200)='VulkanDemoPartition'&#xA;       SELECT [DropIndexScript]&#xA;         FROM [vulkan].[NonClustedIndexProcessConfiguration]&#xA;       WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])&#xA;       AND SubSystemName = @SubSystem&#xA;       &#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::DropIndexScripts" SQLTask:ResultName="0"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="STOCK:FOREACHLOOP" DTS:DTSID="{801EF1DF-4A71-4C33-9A27-D06C96278B42}" DTS:ExecutableType="STOCK:FOREACHLOOP" DTS:LocaleID="-1" DTS:ObjectName="Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd">
+          <DTS:Executables>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{BAF2CAC3-1C53-403D-A972-C837CB2A7B79}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Drop Non-Clustered Index" DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd\Drop Non-Clustered Index" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="&#xA;     &#xA;               DECLARE @execSQL NVARCHAR(max) = ?&#xA;            EXEC sys.sp_executesql @execSQL&#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CurrentDropIndexScript" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachEnumerator DTS:CreationName="Microsoft.ForEachADOEnumerator" DTS:DTSID="{A1788F22-A635-4D74-A473-E083E30C81BC}" DTS:ObjectName="{A1788F22-A635-4D74-A473-E083E30C81BC}">
+            <DTS:ObjectData>
+              <FEEADO EnumType="EnumerateRowsInFirstTable" VarName="User::DropIndexScripts"></FEEADO>
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{BCBB89F9-AB8C-452E-A283-BAE78E9A7625}" DTS:ObjectName="{BCBB89F9-AB8C-452E-A283-BAE78E9A7625}" DTS:ValueIndex="0" DTS:VariableName="User::CurrentDropIndexScript"></DTS:ForEachVariableMapping>
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{1C25D271-D52D-420A-A109-F6F0417D4457}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Create Proc for CREATE INDEX" DTS:refId="Package\Pakkens innhold\Create Proc for CREATE INDEX" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')&#xA;                                    drop proc Script_CreateIndexXZY&#xA;                         go&#xA;    &#xA;    CREATE proc Script_CreateIndexXZY (&#xA;        @TableName varchar(124), @Postfix NVARCHAR(200), @FileGroup NVARCHAR(200), @execSQL NVARCHAR(MAX) OUTPUT, @SchemaName NVARCHAR(200))&#xA;      AS&#xA;      DECLARE @TableNameFull NVARCHAR(200) = @SchemaName + '.' + @TableName&#xA;      begin&#xA;&#xA;&#xA; --DECLARE @TableName varchar(124) = 'EDB_Grunnuttrekk_KR_ROLL'&#xA; --DECLARE @Postfix NVARCHAR(200) = '_switch'&#xA; --DECLARE @FileGroup NVARCHAR(200) = 'FG2014'&#xA; --DECLARE @SchemaName NVARCHAR(200) = 'dbo'&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;        if not exists (select 1 from sys.indexes where type_desc in ('CLUSTERED') AND object_id = &#xA;&#xA; (SELECT TOP 1 object_id FROM  sys.tables WHERE schema_id = SCHEMA_ID(@SchemaName) AND name = @TableName)  )&#xA;            return&#xA;    &#xA;        declare @IndexList table (&#xA;            Id int identity,&#xA;            IndexName varchar(124),&#xA;            IndexDescription varchar(max),&#xA;            IndexKeys varchar(max)&#xA;        )&#xA;    &#xA;        insert @IndexList(IndexName, IndexDescription, IndexKeys)&#xA;            exec sp_helpindex @TableNameFull&#xA;    &#xA;        if (select count(*) from @IndexList) &gt; 0&#xA;        begin&#xA;         &#xA;&#xA;         while exists (select 1 from @IndexList) &#xA;         begin&#xA;             declare @Id int, @IndexName varchar(124), @IndexDescription varchar(max), @IndexKeys varchar(max)&#xA;             select top 1 @Id = Id, @IndexName = IndexName, @IndexDescription = IndexDescription, @IndexKeys = IndexKeys from @IndexList order by Id&#xA;             delete from @IndexList where Id = @Id&#xA;&#xA;             declare @Clustered varchar(10), @Unique varchar(7)&#xA;&#xA;             select @Clustered = case when patindex('%nonclustered%', @IndexDescription) &gt; 0 then '' else ' clustered ' end&#xA;             select @Unique = case when patindex('%unique%', @IndexDescription) &gt; 0 then ' unique ' else '' end&#xA;&#xA;     &#xA;   select @execSQL = CHAR(9) + 'create' + @Unique + @Clustered + ' index [' + @IndexName + '] on [' + @SchemaName  + '].[' + @TableName + '' + @Postfix + '](' + @IndexKeys + ') ON ' + @FileGroup&#xA;     &#xA;         end&#xA;&#xA;  &#xA;        end&#xA;       end&#xA;       go&#xA;&#xA;&#xA;&#xA;        " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{BCF2AC23-24FD-4A39-8447-5905932BAD97}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fill Object Variable" DTS:refId="Package\Pakkens innhold\Fill Object Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_Rowset" SQLTask:SqlStatementSource="SELECT &#xA;         [Schema]&#xA;         ,[Table]&#xA;         ,[CurrentFileGroup]&#xA;    &#xA;  FROM [vulkan].[SwitchConfiguration]&#xA;&#xA;  WHERE SubSystemName = 'VulkanDemoPartition'  &#xA;   &#xA;   AND Active = 'y' " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::Tables" SQLTask:ResultName="0"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="STOCK:FOREACHLOOP" DTS:DTSID="{D0923623-AD6D-465F-A5FA-17D18682E0CB}" DTS:ExecutableType="STOCK:FOREACHLOOP" DTS:LocaleID="-1" DTS:ObjectName="For Each Partioned Table" DTS:refId="Package\Pakkens innhold\For Each Partioned Table">
+          <DTS:Executables>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{984C6CA5-D431-42BE-84BC-8367757624C2}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Create Shadow Table" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Create Shadow Table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="&#xA;DECLARE @table NVARCHAR(200) = ?&#xA;DECLARE @sql NVARCHAR(max)&#xA;DECLARE @schema NVARCHAR(200) = ?&#xA;&#xA;SET @sql =&#xA;&#xA;'&#xA;&#xA;SELECT *&#xA; INTO '+ @schema + '.' + @table + '_shadow&#xA;  FROM  '+ @schema + '.' + @table + '&#xA;&#xA;  WHERE 0 = 1&#xA;&#xA;  '&#xA;&#xA;&#xA;  EXEC sys.sp_executesql @sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7D883BE9-7080-4844-970C-C5DAD0EBA882}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Generate Create Script for Index" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="EXECUTE ? = [dbo].[Script_CreateIndexXZY]  &#xA;  ?&#xA;  ,'_shadow'&#xA;  ,?&#xA;  ,? OUTPUT&#xA;   ,?    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="3" SQLTask:DtsVariableName="User::ReturnValue" SQLTask:ParameterDirection="ReturnValue" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CreateIndex" SQLTask:ParameterDirection="Output" SQLTask:ParameterName="3" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CurrentFileGroup" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="2" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="4" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{8BC15EBF-55DE-44CE-ADE2-167EB289D242}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Create Index" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Create Index" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource=" EXEC sp_executesql ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CreateIndex" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2C23372A-289C-4495-BB7C-9EA905818996}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Partition Number" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="SELECT DISTINCT&#xA;        p.partition_number AS partition_number ,&#xA;        ds.name AS partition_filegroup &#xA;&#xA;FROM    sys.destination_data_spaces AS dds&#xA;        JOIN sys.data_spaces AS ds ON dds.data_space_id = ds.data_space_id&#xA;        JOIN sys.partition_schemes AS ps ON dds.partition_scheme_id = ps.data_space_id&#xA;        JOIN sys.partition_functions AS pf ON ps.function_id = pf.function_id&#xA;        LEFT JOIN sys.partition_range_values AS rv ON pf.function_id = rv.function_id&#xA;                                                        AND dds.destination_id = CASE pf.boundary_value_on_right&#xA;                                                                                    WHEN 0 THEN rv.boundary_id&#xA;                                                                                    ELSE rv.boundary_id + 1&#xA;                                                                                END&#xA;        LEFT JOIN sys.indexes AS si ON dds.partition_scheme_id = si.data_space_id&#xA;        LEFT JOIN sys.partitions AS p ON si.object_id = p.object_id&#xA;                                            AND si.index_id = p.index_id&#xA;                                            AND dds.destination_id = p.partition_number&#xA;        LEFT JOIN sys.dm_db_partition_stats AS dbps ON p.object_id = dbps.object_id&#xA;                                                        AND p.partition_id = dbps.partition_id&#xA;&#xA;WHERE ds.name = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CurrentFileGroup" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ResultBinding SQLTask:DtsVariableName="User::PartionNumber" SQLTask:ResultName="partition_number"></SQLTask:ResultBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7EDC42BC-06B4-4569-BA5C-56930D0321F1}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fix table compression" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Fix table compression" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="  &#xA;DECLARE @schema NVARCHAR(200) = ?   &#xA;DECLARE @table NVARCHAR(200) = ?&#xA;&#xA;DECLARE @part NVARCHAR(200)= ?&#xA;DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table&#xA;DECLARE @shadow NVARCHAR(200)= @schema + '.' + @table + '_shadow'&#xA;DECLARE @compression NVARCHAR(200)&#xA;DECLARE @sql NVARCHAR(max)&#xA;&#xA;&#xA;;WITH GetCompression AS (&#xA;&#xA;SELECT  SCHEMA_NAME(so.schema_id) AS schema_name ,&#xA;        OBJECT_NAME(p.object_id) AS object_name ,&#xA;        p.partition_number ,&#xA;        p.data_compression_desc ,&#xA;        dbps.row_count ,&#xA;        dbps.reserved_page_count * 8 / 1024. AS reserved_mb ,&#xA;        si.index_id ,&#xA;        CASE WHEN si.index_id = 0 THEN '(heap!)'&#xA;                ELSE si.name&#xA;        END AS index_name ,&#xA;        si.is_unique ,&#xA;        si.data_space_id ,&#xA;        mappedto.name AS mapped_to_name ,&#xA;        mappedto.type_desc AS mapped_to_type_desc ,&#xA;        partitionds.name AS partition_filegroup ,&#xA;        pf.name AS pf_name ,&#xA;        pf.type_desc AS pf_type_desc ,&#xA;        pf.fanout AS pf_fanout ,&#xA;        pf.boundary_value_on_right ,&#xA;        ps.name AS partition_scheme_name ,&#xA;        rv.value AS range_value&#xA;FROM    sys.partitions p&#xA;JOIN    sys.objects so&#xA;        ON p.object_id = so.object_id&#xA;            AND so.is_ms_shipped = 0&#xA;LEFT JOIN sys.dm_db_partition_stats AS dbps&#xA;        ON p.object_id = dbps.object_id&#xA;            AND p.partition_id = dbps.partition_id&#xA;JOIN    sys.indexes si&#xA;        ON p.object_id = si.object_id&#xA;            AND p.index_id = si.index_id&#xA;LEFT JOIN sys.data_spaces mappedto&#xA;        ON si.data_space_id = mappedto.data_space_id&#xA;LEFT JOIN sys.destination_data_spaces dds&#xA;        ON si.data_space_id = dds.partition_scheme_id&#xA;            AND p.partition_number = dds.destination_id&#xA;LEFT JOIN sys.data_spaces partitionds&#xA;        ON dds.data_space_id = partitionds.data_space_id&#xA;LEFT JOIN sys.partition_schemes AS ps&#xA;        ON dds.partition_scheme_id = ps.data_space_id&#xA;LEFT JOIN sys.partition_functions AS pf&#xA;        ON ps.function_id = pf.function_id&#xA;LEFT JOIN sys.partition_range_values AS rv&#xA;        ON pf.function_id = rv.function_id&#xA;            AND dds.destination_id = CASE pf.boundary_value_on_right&#xA;                                        WHEN 0 THEN rv.boundary_id&#xA;                                        ELSE rv.boundary_id + 1&#xA;          END&#xA;    &#xA;)&#xA;&#xA;SELECT @compression = GetCompression.data_compression_desc&#xA;FROM GetCompression&#xA;WHERE &#xA;&#xA;GetCompression.object_name = @table AND &#xA;GetCompression.schema_name = @schema AND&#xA;GetCompression.partition_number = @part&#xA;&#xA;IF @compression &lt;&gt; 'NONE' &#xA;BEGIN&#xA;&#xA;SET @sql =&#xA;&#xA;'ALTER TABLE '+ @shadow +' REBUILD PARTITION = ALL&#xA;WITH &#xA;(DATA_COMPRESSION = '+ @compression +'&#xA;)'&#xA;    &#xA;END&#xA;&#xA;EXEC sys.sp_executesql @sql  &#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::PartionNumber" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="2" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{D6751F22-781D-438E-B49C-58BA41C7A0E1}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="SWITCH PARTITION" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource="&#xA;DECLARE @schema NVARCHAR(200) = ?   &#xA;DECLARE @table NVARCHAR(200) = ?&#xA;&#xA;DECLARE @part NVARCHAR(200)= ?&#xA;DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table&#xA;DECLARE @switch NVARCHAR(200)= @schema + '.' + @table + '_shadow'&#xA;DECLARE @sql NVARCHAR(max)&#xA;&#xA;&#xA;SET @sql =&#xA;'&#xA;ALTER TABLE '+ @schematable +'&#xA;SWITCH PARTITION ' + @part + ' TO ' + @switch&#xA;&#xA;&#xA;&#xA;EXEC sys.sp_executesql @sql&#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::PartionNumber" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="2" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{A847C893-C7A0-4A8B-A325-163AF845D2C4}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Rename Tables" DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Rename Tables" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource=" &#xA; &#xA;  &#xA;    DECLARE @schema NVARCHAR(200) = ?&#xA;   DECLARE @table NVARCHAR(200) = ?&#xA;   DECLARE @newtablename NVARCHAR(200) = 'partition_' + @table&#xA;&#xA;   DECLARE @schemaoldtablename NVARCHAR(200) = @schema + '.' + @table&#xA;   DECLARE @schemanewtablename NVARCHAR(200) = 'partition_' + @table&#xA;&#xA;  EXEC sp_rename @schemaoldtablename, @schemanewtablename&#xA;&#xA;&#xA;     DECLARE @schema2 NVARCHAR(200) = ?&#xA;   DECLARE @table2 NVARCHAR(200) = ?&#xA;   DECLARE @newtablename2 NVARCHAR(200) = @table&#xA;&#xA;   DECLARE @schemaoldtablename2 NVARCHAR(200) = @schema2 + '.' + @table2 +  '_shadow'&#xA;   DECLARE @schemanewtablename2 NVARCHAR(200) = @table&#xA;&#xA;  EXEC sp_rename @schemaoldtablename2, @schemanewtablename2&#xA;&#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Schema" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="2" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Table" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="3" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachEnumerator DTS:CreationName="Microsoft.ForEachADOEnumerator" DTS:DTSID="{83422F25-B9ED-4D8B-87F8-A5ADB2E77EDF}" DTS:ObjectName="{83422F25-B9ED-4D8B-87F8-A5ADB2E77EDF}">
+            <DTS:ObjectData>
+              <FEEADO EnumType="EnumerateRowsInFirstTable" VarName="User::Tables"></FEEADO>
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{12C7D31C-3FAE-443E-A683-7BA3A1BBFC9E}" DTS:ObjectName="{12C7D31C-3FAE-443E-A683-7BA3A1BBFC9E}" DTS:ValueIndex="0" DTS:VariableName="User::Schema"></DTS:ForEachVariableMapping>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{8CF70E2A-83E0-4C65-8E15-324B9FE4E4EE}" DTS:ObjectName="{8CF70E2A-83E0-4C65-8E15-324B9FE4E4EE}" DTS:ValueIndex="1" DTS:VariableName="User::Table"></DTS:ForEachVariableMapping>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{D67C09AD-25DE-4B07-B125-AB4E9126B38B}" DTS:ObjectName="{D67C09AD-25DE-4B07-B125-AB4E9126B38B}" DTS:ValueIndex="2" DTS:VariableName="User::CurrentFileGroup"></DTS:ForEachVariableMapping>
+          </DTS:ForEachVariableMappings>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{0F4BA7EC-F0E7-4EC2-AAFC-94C2E8E3BF60}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\Create Shadow Table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Create Shadow Table_To_Generate Create Script for Index" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Shadow Table_To_Generate Create Script for Index]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index"></DTS:PrecedenceConstraint>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{3587FA11-01DF-437D-956C-4BDF27BAF37C}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Generate Create Script for Index_To_Create Index" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Generate Create Script for Index_To_Create Index]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\Create Index"></DTS:PrecedenceConstraint>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{7907F2EE-CB25-4495-86C4-2D47E6BF50E0}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\Create Index" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Create Index_To_Get Partition Number" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Index_To_Get Partition Number]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number"></DTS:PrecedenceConstraint>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{6B46E4EA-A0D3-4411-9235-51021374CBFC}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Partition Number_To_Fix table compression" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Get Partition Number_To_Fix table compression]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\Fix table compression"></DTS:PrecedenceConstraint>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{E194BD58-7838-45AF-B616-10792EBA6C47}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\Fix table compression" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fix table compression_To_SWITCH PARTITION" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Fix table compression_To_SWITCH PARTITION]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION"></DTS:PrecedenceConstraint>
+            <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{9D0A59D0-6B79-4CBF-858E-9D67E8A3724B}" DTS:From="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_SWITCH PARTITION_To_Rename Tables" DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_SWITCH PARTITION_To_Rename Tables]" DTS:To="Package\Pakkens innhold\For Each Partioned Table\Rename Tables"></DTS:PrecedenceConstraint>
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{A459A8C4-0B95-4A88-A23E-7B25CCC4714C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Drop Create Index Procedure" DTS:refId="Package\Pakkens innhold\Drop Create Index Procedure" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.VulkanProd" SQLTask:SqlStatementSource=" if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')&#xA;                                    drop proc Script_CreateIndexXZY&#xA;                         go&#xA;    &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{068CA137-3825-4E8F-90E7-892B8C00A7B9}" DTS:From="Package\Pakkens innhold\Fill Drop Index Scripts Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd]" DTS:To="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{AA4DA805-8855-4EAF-BC9F-36AE7965819A}" DTS:From="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Create Proc for CREATE INDEX" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Create Proc for CREATE INDEX]" DTS:To="Package\Pakkens innhold\Create Proc for CREATE INDEX"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{2E60879B-D5D4-4AA3-8498-F3D4F1712693}" DTS:From="Package\Pakkens innhold\Create Proc for CREATE INDEX" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Create Proc for CREATE INDEX_To_Fill Object Variable" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Create Proc for CREATE INDEX_To_Fill Object Variable]" DTS:To="Package\Pakkens innhold\Fill Object Variable"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{B3A36560-946F-40D8-AF1B-E2E2A4A4AA3F}" DTS:From="Package\Pakkens innhold\Fill Object Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fill Object Variable_To_For Each Partioned Table" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Object Variable_To_For Each Partioned Table]" DTS:To="Package\Pakkens innhold\For Each Partioned Table"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1B20683B-AF32-4A06-9BCC-FFA3AD31C935}" DTS:From="Package\Pakkens innhold\For Each Partioned Table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_For Each Partioned Table_To_Drop Create Index Procedure" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_For Each Partioned Table_To_Drop Create Index Procedure]" DTS:To="Package\Pakkens innhold\Drop Create Index Procedure"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

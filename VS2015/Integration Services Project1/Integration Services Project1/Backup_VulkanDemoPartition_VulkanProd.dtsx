@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="09/02/2016 10:14:18" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="UTVPC09QEDF" DTS:CreatorName="SPVEST\kennem" DTS:DTSID="{9F151742-7DFE-43E4-A337-07215FCBCA96}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="Backup_VulkanDemoPartition_VulkanProd" DTS:PackageType="5" DTS:refId="Package" DTS:VersionBuild="14" DTS:VersionGUID="{3EB352BB-00CE-4A01-B4C2-DBBDF3B3D5E9}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{B676D8AD-5EBB-45C2-A1CC-E262D97BFBBC}" DTS:ObjectName="VulkanDemoProd.VulkanProd" DTS:refId="Package.ConnectionManagers[VulkanDemoProd.VulkanProd]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoProd;initial catalog=VulkanProd;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{724E1EEC-8049-4694-A752-BA4F1FFC7A59}" DTS:ObjectName="VulkanDemoProd.master" DTS:refId="Package.ConnectionManagers[VulkanDemoProd.master]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoProd;initial catalog=master;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0520CC70-B679-459A-B0B5-A7AF2A1B5D2E}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentRecoveryMode">
+      <DTS:VariableValue DTS:DataType="8">FULL</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{996E3CD8-8B34-49A4-92A0-5432704F3269}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileSourceServer">
+      <DTS:VariableValue DTS:DataType="8">F:\VulkanBackup\VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{E07BA017-1E78-462B-A05A-A38840E78156}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.FileSystemTask" DTS:DTSID="{BDBDAE4D-4DA2-423D-97C8-8D3584E73C25}" DTS:ExecutableType="Microsoft.FileSystemTask" DTS:LocaleID="-1" DTS:ObjectName="Delete Source Backup File" DTS:refId="Package\Pakkens innhold\Delete Source Backup File" DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <FileSystemData TaskIsSourceVariable="True" TaskOperationType="DeleteFile" TaskSourcePath="User::FilePathBakFileSourceServer"></FileSystemData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{5F21761A-B0FB-449F-8EED-26166DD55D27}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set Recovery Mode to full" DTS:refId="Package\Pakkens innhold\Set Recovery Mode to full" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoProd.master" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="&#xA;DECLARE @RecoveryMode VARCHAR(6) = (SELECT recovery_model_desc AS CurrentRecoveryMode&#xA;   FROM sys.databases  &#xA;      WHERE name = 'VulkanProd')&#xA;&#xA;IF @RecoveryMode = 'SIMPLE'&#xA;BEGIN&#xA;     ALTER DATABASE VulkanProd&#xA;  SET RECOVERY FULL WITH NO_WAIT&#xA;END&#xA;&#xA;SELECT @RecoveryMode AS CurrentRecoveryMode &#xA;   " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::CurrentRecoveryMode" SQLTask:ResultName="CurrentRecoveryMode"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{64059C7B-1F8E-4409-9381-BA78A5957302}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Partial Backup Source Database" DTS:refId="Package\Pakkens innhold\Partial Backup Source Database" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoProd.VulkanProd" SQLTask:SqlStatementSource="&#xA;     BACKUP DATABASE [VulkanProd] &#xA;&#xA;     &#xA; FILEGROUP = 'FG2015',&#xA; FILEGROUP = 'FG2016',&#xA; FILEGROUP = 'FG2017',&#xA; FILEGROUP = 'MainDataGroup',&#xA; FILEGROUP = 'MainIndexGroup',&#xA; FILEGROUP = 'PRIMARY'&#xA;&#xA;     TO  DISK = 'F:\VulkanBackup\VulkanProd.bak' &#xA;     &#xA;     WITH COMPRESSION,&#xA;     COPY_ONLY, &#xA;     NOFORMAT, &#xA;     NOINIT,  &#xA;     NAME = N'VulkanProd Backup', &#xA;     SKIP, &#xA;     REWIND, &#xA;     NOUNLOAD;&#xA;     &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{527C6A28-4732-4A88-BFDB-AE92219BC764}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set Source Database to Simple Recovery Mode" DTS:refId="Package\Pakkens innhold\Set Source Database to Simple Recovery Mode" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoProd.master" SQLTask:SqlStatementSource="&#xA;DECLARE @RecoveryMode VARCHAR(6) = ?&#xA;&#xA;IF @RecoveryMode = 'SIMPLE'&#xA;BEGIN&#xA; ALTER DATABASE VulkanProd&#xA;         SET RECOVERY SIMPLE WITH NO_WAIT&#xA;END&#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding SQLTask:DataType="129" SQLTask:DtsVariableName="User::CurrentRecoveryMode" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="6"></SQLTask:ParameterBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{48E76795-689D-46FB-A8C7-4E2D63F0A358}" DTS:From="Package\Pakkens innhold\Delete Source Backup File" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Delete Source Backup File_To_Set Recovery Mode to full" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Delete Source Backup File_To_Set Recovery Mode to full]" DTS:To="Package\Pakkens innhold\Set Recovery Mode to full"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{B91150FA-1AC3-438C-976E-CBA170BFCCF5}" DTS:From="Package\Pakkens innhold\Set Recovery Mode to full" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Set Recovery Mode to full_To_Partial Backup Source Database" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Set Recovery Mode to full_To_Partial Backup Source Database]" DTS:To="Package\Pakkens innhold\Partial Backup Source Database"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{B9D51C20-2007-450C-A892-439687443411}" DTS:From="Package\Pakkens innhold\Partial Backup Source Database" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Partial Backup Source Database_To_Set Source Database to Simple Recovery Mode" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Partial Backup Source Database_To_Set Source Database to Simple Recovery Mode]" DTS:To="Package\Pakkens innhold\Set Source Database to Simple Recovery Mode"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

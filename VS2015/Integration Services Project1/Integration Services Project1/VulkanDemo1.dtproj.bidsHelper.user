@@ -1,0 +1,11 @@
+<Configurations>
+  <Configuration>
+    <Name>Development</Name>
+    <Options>
+      <DeploymentType>SsisPackageStoreMsdbDestination</DeploymentType>
+      <FilePath />
+      <DestinationServer>localhost</DestinationServer>
+      <DestinationFolder>VULKAN</DestinationFolder>
+    </Options>
+  </Configuration>
+</Configurations>

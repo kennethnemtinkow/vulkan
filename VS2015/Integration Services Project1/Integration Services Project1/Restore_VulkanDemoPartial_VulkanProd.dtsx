@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="06/15/2017 18:27:23" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="VulkanDemoProd" DTS:CreatorName="kennem" DTS:DTSID="{44EAA895-20DB-42AD-97DE-B369AECF5985}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="Restore_VulkanDemoPartial_VulkanProd" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{F11A5789-0EA4-4D79-87E7-C57393AC89A8}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{3AFCE236-1ADE-4B37-986A-9045FC09C42A}" DTS:ObjectName="VulkanDemoTest.master" DTS:refId="Package.ConnectionManagers[VulkanDemoTest.master]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoTest;initial catalog=master;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{2660E099-9260-431C-BBD4-DAC23AA561C0}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="BatchLogID">
+      <DTS:VariableValue DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{00D9A76A-17D2-4F7B-99B0-8A6CC472AD0E}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="EndBatchAudit">
+      <DTS:VariableValue DTS:DataType="11">False</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5765AC5D-72EE-43DA-AE30-0BBF66896B56}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="PackageLogID">
+      <DTS:VariableValue DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{AC757882-6857-4ACF-BD10-F27E04968C34}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="WebsiteForDebugInfo">
+      <DTS:VariableValue DTS:DataType="8">http://www.spv.no/?</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{BDE8C6E0-DFD2-4B45-9E22-AA34FB4FCC48}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="LogServerConnectionstring">
+      <DTS:VariableValue DTS:DataType="8">Data Source=utvsql195dwh.spvutvikling.no;Initial Catalog=ConfigLog;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3C6F034E-1571-4717-A4E0-438D25E6267A}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileSourceServer">
+      <DTS:VariableValue DTS:DataType="8">F:\VulkanBackup\VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{8D90960D-E780-4C9E-A74C-977246E02AE9}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileDestinationServerRemoteAccess">
+      <DTS:VariableValue DTS:DataType="8">\\VulkanDemoProd\VulkanBackup\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{98A28D2B-A104-4397-B3D0-F143DB8A2ADA}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileDestinationServer">
+      <DTS:VariableValue DTS:DataType="8">W:\VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{694AD2F8-7986-400F-848B-5900C12273E4}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentRecoveryMode">
+      <DTS:VariableValue DTS:DataType="8">Simple</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{CDAC1FAE-3D5A-44D8-B0E0-EB498D1823F1}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathFullBakFileDestinationServerRemoteAccess">
+      <DTS:VariableValue DTS:DataType="8">\\VulkanDemoProd\VulkanBackup\VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{CA1DD383-8466-4621-A5EF-9A1659065EFF}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="DeleteBakFileOnSourceServer">
+      <DTS:VariableValue DTS:DataType="8">n</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{89F7EB78-EAD9-4500-A22A-90131B8BCC43}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="DeleteBakFileOnDestinationServer">
+      <DTS:VariableValue DTS:DataType="8">n</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{9433EA0D-62EE-4EA7-A59A-B0D13F0B128F}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{5159CFE8-88BA-4571-9054-7CD5C9402700}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Kill Connection to VulkanProd" DTS:refId="Package\Pakkens innhold\Kill Connection to VulkanProd" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;     &#xA;             DECLARE @DatabaseName AS VARCHAR(100)&#xA;&#xA;       SET @DatabaseName = 'VulkanProd'&#xA;&#xA;       USE master&#xA;&#xA;       SET NOCOUNT ON&#xA;       DECLARE @DBName varchar(50)&#xA;       DECLARE @spidstr varchar(8000)&#xA;       DECLARE @ConnKilled smallint&#xA;       SET @ConnKilled=0&#xA;       SET @spidstr = ''&#xA;       &#xA;       IF EXISTS (SELECT name FROM master.sys.databases WHERE name = @DatabaseName)&#xA;&#xA;       Set @DBName = @DatabaseName&#xA;       IF db_id(@DBName) &lt; 4&#xA;       BEGIN&#xA;       PRINT 'Connections to system databases cannot be killed'&#xA;       RETURN&#xA;       END&#xA;       SELECT @spidstr=coalesce(@spidstr,'','' )+'kill '+convert(varchar, spid)+ '; '&#xA;       FROM master..sysprocesses WHERE dbid=db_id(@DBName)&#xA;&#xA;       IF LEN(@spidstr) &gt; 0&#xA;       BEGIN&#xA;       EXEC(@spidstr)&#xA;       SELECT @ConnKilled = COUNT(1)&#xA;       FROM master..sysprocesses WHERE dbid=db_id(@DBName)&#xA;       &#xA;       END &#xA;     &#xA;     &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{3927B36C-95E5-4FDD-AAA7-75D1EA18EC25}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Restore VulkanProd" DTS:refId="Package\Pakkens innhold\Restore VulkanProd" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;     &#xA;             RESTORE DATABASE [VulkanProd] &#xA;                            &#xA; FILEGROUP = 'FG2002',&#xA; FILEGROUP = 'FG2003',&#xA; FILEGROUP = 'FG2004',&#xA; FILEGROUP = 'FG2005',&#xA; FILEGROUP = 'FG2006',&#xA; FILEGROUP = 'FG2007',&#xA; FILEGROUP = 'FG2008',&#xA; FILEGROUP = 'FG2009',&#xA; FILEGROUP = 'FG2010',&#xA; FILEGROUP = 'FG2011',&#xA; FILEGROUP = 'FG2012',&#xA; FILEGROUP = 'FG2013',&#xA; FILEGROUP = 'FG2014',&#xA; FILEGROUP = 'FG2015',&#xA; FILEGROUP = 'FG2016',&#xA; FILEGROUP = 'FG2017',&#xA; FILEGROUP = 'FG2018',&#xA; FILEGROUP = 'FG2019',&#xA; FILEGROUP = 'FG2020',&#xA; FILEGROUP = 'FG2021',&#xA; FILEGROUP = 'FG2022',&#xA; FILEGROUP = 'FG2023',&#xA; FILEGROUP = 'FG2024',&#xA; FILEGROUP = 'FG2025',&#xA; FILEGROUP = 'MainDataGroup',&#xA; FILEGROUP = 'MainIndexGroup',&#xA; FILEGROUP = 'PRIMARY'&#xA;                            FROM DISK = 'W:\VulkanProd.bak'&#xA;&#xA;       WITH &#xA;       PARTIAL, &#xA;       REPLACE,&#xA;       RECOVERY,  &#xA;       &#xA; MOVE N'VulkanProd' TO N'F:\Data\VulkanProd.mdf',&#xA; MOVE N'VulkanProd_log' TO N'F:\Log\VulkanProd_log.ldf',&#xA; MOVE N'MainDataGroup' TO N'F:\Data\MainDataGroup.ndf',&#xA; MOVE N'MainIndexGroup' TO N'F:\Data\MainIndexGroup.ndf',&#xA; MOVE N'FG2009' TO N'F:\Data\VulkanProdFG2009.ndf',&#xA; MOVE N'FG2010' TO N'F:\Data\VulkanProdFG2010.ndf',&#xA; MOVE N'FG2011' TO N'F:\Data\VulkanProdFG2011.ndf',&#xA; MOVE N'FG2012' TO N'F:\Data\VulkanProdFG2012.ndf',&#xA; MOVE N'FG2013' TO N'F:\Data\VulkanProdFG2013.ndf',&#xA; MOVE N'FG2014' TO N'F:\Data\VulkanProdFG2014.ndf',&#xA; MOVE N'FG2015' TO N'F:\Data\VulkanProdFG2015.ndf',&#xA; MOVE N'FG2016' TO N'F:\Data\VulkanProdFG2016.ndf',&#xA; MOVE N'FG2017' TO N'F:\Data\VulkanProdFG2017.ndf',&#xA; MOVE N'FG2018' TO N'F:\Data\VulkanProdFG2018.ndf',&#xA; MOVE N'FG2019' TO N'F:\Data\VulkanProdFG2019.ndf',&#xA; MOVE N'FG2020' TO N'F:\Data\VulkanProdFG2020.ndf',&#xA; MOVE N'FG2021' TO N'F:\Data\VulkanProdFG2021.ndf',&#xA; MOVE N'FG2022' TO N'F:\Data\VulkanProdFG2022.ndf',&#xA; MOVE N'FG2023' TO N'F:\Data\VulkanProdFG2023.ndf',&#xA; MOVE N'FG2024' TO N'F:\Data\VulkanProdFG2024.ndf',&#xA; MOVE N'FG2025' TO N'F:\Data\VulkanProdFG2025.ndf',&#xA; MOVE N'FG2002' TO N'F:\Data\VulkanProdFG2002.ndf',&#xA; MOVE N'FG2003' TO N'F:\Data\VulkanProdFG2003.ndf',&#xA; MOVE N'FG2004' TO N'F:\Data\VulkanProdFG2004.ndf',&#xA; MOVE N'FG2005' TO N'F:\Data\VulkanProdFG2005.ndf',&#xA; MOVE N'FG2006' TO N'F:\Data\VulkanProdFG2006.ndf',&#xA; MOVE N'FG2007' TO N'F:\Data\VulkanProdFG2007.ndf',&#xA; MOVE N'FG2008' TO N'F:\Data\VulkanProdFG2008.ndf'&#xA;&#xA;;&#xA;&#xA;     &#xA;     &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{58FE9EFC-BDE9-473F-9A5C-74B4A84EAD92}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set VulkanProd Recovery Mode" DTS:refId="Package\Pakkens innhold\Set VulkanProd Recovery Mode" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;      &#xA;      &#xA;      &#xA;      BEGIN&#xA;       ALTER DATABASE VulkanProd&#xA;               SET RECOVERY Simple WITH NO_WAIT&#xA;      END;&#xA;    &#xA;     &#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.FileSystemTask" DTS:DTSID="{041A9B3D-451A-4A85-BAE1-3871EB4EBF6C}" DTS:ExecutableType="Microsoft.FileSystemTask" DTS:LocaleID="-1" DTS:ObjectName="Delete Source Bak File" DTS:refId="Package\Pakkens innhold\Delete Source Bak File" DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <FileSystemData TaskIsSourceVariable="True" TaskOperationType="DeleteFile" TaskSourcePath="User::FilePathBakFileSourceServer"></FileSystemData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.FileSystemTask" DTS:DTSID="{593BA481-1836-4C75-A9CD-797E146CF325}" DTS:ExecutableType="Microsoft.FileSystemTask" DTS:LocaleID="-1" DTS:ObjectName="Delete Destination Bak File" DTS:refId="Package\Pakkens innhold\Delete Destination Bak File" DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <FileSystemData TaskIsSourceVariable="True" TaskOperationType="DeleteFile" TaskSourcePath="User::FilePathFullBakFileDestinationServerRemoteAccess"></FileSystemData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{79E2C239-18A2-48B0-8F26-801F150AC4D5}" DTS:From="Package\Pakkens innhold\Kill Connection to VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Kill Connection to VulkanProd_To_Restore VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Kill Connection to VulkanProd_To_Restore VulkanProd]" DTS:To="Package\Pakkens innhold\Restore VulkanProd"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{DBEE2C45-B138-4A4E-A8DF-4ECF9D120198}" DTS:From="Package\Pakkens innhold\Restore VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Restore VulkanProd_To_Set VulkanProd Recovery Mode" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Restore VulkanProd_To_Set VulkanProd Recovery Mode]" DTS:To="Package\Pakkens innhold\Set VulkanProd Recovery Mode"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{7B6A1C08-A785-4514-B64B-A96144DD51DF}" DTS:EvalOp="1" DTS:Expression="UPPER(@[User::DeleteBakFileOnSourceServer]) == UPPER(&quot;y&quot;)" DTS:From="Package\Pakkens innhold\Set VulkanProd Recovery Mode" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Set VulkanProd Recovery Mode_To_Delete Source Bak File" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Set VulkanProd Recovery Mode_To_Delete Source Bak File]" DTS:To="Package\Pakkens innhold\Delete Source Bak File"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{0EC314D6-57EA-400F-A424-9974DB23FA7E}" DTS:EvalOp="1" DTS:Expression="UPPER( @[User::DeleteBakFileOnDestinationServer]  )  ==  UPPER( &quot;y&quot;)" DTS:From="Package\Pakkens innhold\Set VulkanProd Recovery Mode" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Set VulkanProd Recovery Mode_To_Delete Destination Bak File" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Set VulkanProd Recovery Mode_To_Delete Destination Bak File]" DTS:To="Package\Pakkens innhold\Delete Destination Bak File"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

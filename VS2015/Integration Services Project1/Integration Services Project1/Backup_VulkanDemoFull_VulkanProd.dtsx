@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="09/02/2016 10:14:18" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="UTVPC09QEDF" DTS:CreatorName="SPVEST\kennem" DTS:DTSID="{9247F849-594B-4C04-B262-D36DD90C2E92}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="Backup_VulkanDemoFull_VulkanProd" DTS:PackageType="5" DTS:refId="Package" DTS:VersionBuild="14" DTS:VersionGUID="{B8629B9F-F5DC-4D78-8528-A878AA959143}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{EC6645FA-536D-4A33-B2AF-D5875F1ED47A}" DTS:ObjectName="VulkanDemoProd.master" DTS:refId="Package.ConnectionManagers[VulkanDemoProd.master]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoProd;initial catalog=master;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0BA06140-184E-4AF8-85AF-3D125043D09B}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentRecoveryMode">
+      <DTS:VariableValue DTS:DataType="8">FULL</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{D35718AB-E506-44CB-A9E3-B6920B7B2985}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileSourceServer">
+      <DTS:VariableValue DTS:DataType="8">F:\VulkanBackup\VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{5E8DE46A-B659-43F1-A6A9-4812E58B9994}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.FileSystemTask" DTS:DTSID="{288A1BCE-ED4A-4D2B-A4D1-00FA58E2F396}" DTS:ExecutableType="Microsoft.FileSystemTask" DTS:LocaleID="-1" DTS:ObjectName="Delete Source Backup File" DTS:refId="Package\Pakkens innhold\Delete Source Backup File" DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <FileSystemData TaskIsSourceVariable="True" TaskOperationType="DeleteFile" TaskSourcePath="User::FilePathBakFileSourceServer"></FileSystemData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{3B192032-F8A0-4119-9076-366438088739}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Full Backup Source Database" DTS:refId="Package\Pakkens innhold\Full Backup Source Database" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoProd.master" SQLTask:SqlStatementSource="&#xA;BACKUP DATABASE [VulkanProd] &#xA;&#xA;TO  DISK = 'F:\VulkanBackup\VulkanProd.bak'&#xA;WITH  COMPRESSION,&#xA;COPY_ONLY, &#xA;NOFORMAT, &#xA;NOINIT,  &#xA;NAME = N'VulkanProd-FULL Database Backup', &#xA;SKIP, &#xA;REWIND, &#xA;NOUNLOAD;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{4E9D67B2-A70C-4E9F-A4A8-A7FEE8F434CA}" DTS:From="Package\Pakkens innhold\Delete Source Backup File" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Delete Source Backup File_To_Full Backup Source Database" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Delete Source Backup File_To_Full Backup Source Database]" DTS:To="Package\Pakkens innhold\Full Backup Source Database"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

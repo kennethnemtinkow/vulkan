@@ -1,0 +1,596 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	
+<!--Get Connections-->
+
+<# 
+     String ConfigConnString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1;"; 
+	DataTable databaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer, DestinationDatabase FROM [vulkan].[SwitchConfiguration]");
+	DataTable serverList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer FROM [vulkan].[SwitchConfiguration]");
+	DataTable switchList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName], [DestinationServer], [DestinationDatabase] FROM [vulkan].[SwitchConfiguration] WHERE Active='y'");
+
+	#>
+	
+	
+	
+ <Connections>
+	 <# foreach(DataRow db in databaseList.Rows) { 
+			String srvr = db["DestinationServer"].ToString();
+		    String dbName = db["DestinationDatabase"].ToString();
+	 #>
+	
+    <Connection Name="<#=srvr#>.<#=dbName#>" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=<#=dbName#>;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+     <#}#>
+		 
+		 
+	<# foreach(DataRow srv in serverList.Rows) {
+			String srvr = srv["DestinationServer"].ToString();
+	#>
+	<Connection Name="<#=srvr#>.master" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=master;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+	<#}#>	 
+		
+	 <OleDbConnection Name="DBConnection.PartitionConfigServer" ConnectionString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"></OleDbConnection>
+  	
+	 
+   </Connections>	
+	
+	
+	
+	<Packages>
+		
+		<# foreach(DataRow swch in switchList.Rows) 
+		{
+					
+			String subSystem = swch["SubSystemName"].ToString();
+			
+			String destSrvr = swch["DestinationServer"].ToString();
+			
+			String destDbName = swch["DestinationDataBase"].ToString();
+	
+		    String ConnString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;User Id=vulkanbiml;Password=TitanStopSign2%;Persist Security Info=False;"; 
+			
+		#>
+		
+		<Package Name="Switch_<#=subSystem#>_<#=destDbName#>">
+		
+	 
+			
+	    <Variables>		
+			
+		    	<Variable Name="CreateIndex" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+        <Variable Name="CreateTable" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+        <Variable Name="CurrentFileGroup" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+        <Variable Name="PartionNumber" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+        <Variable Name="ReturnValue" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+        <Variable Name="Table" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+        <Variable Name="Tables" DataType="Object" IncludeInDebugDump="Include"></Variable>
+			<Variable Name="Schema" DataType="String" IncludeInDebugDump="Include"></Variable>
+			<Variable Name="DropIndexScripts" DataType="Object" IncludeInDebugDump="Include">0</Variable>
+			<Variable Name="CurrentDropIndexScript" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+			
+			
+			
+			
+		</Variables>
+				   
+			
+			<Tasks>
+				
+				<Container Name="Pakkens innhold" ForcedExecutionValueDataType="Empty" ConstraintMode="Parallel">
+           
+          
+          <Tasks>
+      
+				 <!--Specific task: Create Data flow transformation to load table.-->
+			  
+			  
+			  
+			  
+			   <ExecuteSQL Name="Fill Drop Index Scripts Variable" ConnectionName="DBConnection.PartitionConfigServer" ResultSet="Full">
+				 
+				   
+					  <Results>
+						<Result Name="0" VariableName="User.DropIndexScripts" />
+					  </Results>
+					  <DirectInput>
+						  
+						    DECLARE @SubSystem NVARCHAR(200)='<#=subSystem#>'
+							SELECT [DropIndexScript]
+  							FROM [vulkan].[NonClustedIndexProcessConfiguration]
+							WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])
+							AND SubSystemName = @SubSystem
+							
+						 </DirectInput>
+					  </ExecuteSQL>
+			  
+			  
+			     <ForEachAdoLoop Name="Drop Each NonClustered Index on Partitioned Tables On <#=destDbName#>" SourceVariableName="User.DropIndexScripts" ConstraintMode="Parallel">
+				       <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Fill Drop Index Scripts Variable.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+						
+						<Variables>
+                        
+                    </Variables>
+                    <VariableMappings>
+                            <VariableMapping Name="0" VariableName="User.CurrentDropIndexScript" />
+                           
+                    </VariableMappings>
+                     
+                    <!-- execute some tasks using the variables passed from the dataset -->
+                    <Tasks>
+						
+		 <ExecuteSQL Name="Drop Non-Clustered Index" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+         
+          <DirectInput>
+			  
+			            DECLARE @execSQL NVARCHAR(max) = ?
+				        EXEC sys.sp_executesql @execSQL
+		  </DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.CurrentDropIndexScript" Length="-1" DataType="String" />
+            
+          </Parameters>
+        </ExecuteSQL>
+						
+						  </Tasks>
+                         
+                </ForEachAdoLoop>
+			  
+			  
+			  
+			  
+		         <ExecuteSQL Name="Create Proc for CREATE INDEX" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+				 
+				  <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Drop Each NonClustered Index on Partitioned Tables On <#=destDbName#>.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+                      <DirectInput>if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')
+                                    drop proc Script_CreateIndexXZY
+				                     go
+				
+			 CREATE proc Script_CreateIndexXZY (
+        @TableName varchar(124), @Postfix NVARCHAR(200), @FileGroup NVARCHAR(200), @execSQL NVARCHAR(MAX) OUTPUT, @SchemaName NVARCHAR(200))
+      AS
+      DECLARE @TableNameFull NVARCHAR(200) = @SchemaName + '.' + @TableName
+      begin
+
+
+ --DECLARE @TableName varchar(124) = 'EDB_Grunnuttrekk_KR_ROLL'
+ --DECLARE @Postfix NVARCHAR(200) = '_switch'
+ --DECLARE @FileGroup NVARCHAR(200) = 'FG2014'
+ --DECLARE @SchemaName NVARCHAR(200) = 'dbo'
+
+
+
+
+
+
+        if not exists (select 1 from sys.indexes where type_desc in ('CLUSTERED') AND object_id = 
+
+ (SELECT TOP 1 object_id FROM  sys.tables WHERE schema_id = SCHEMA_ID(@SchemaName) AND name = @TableName)  )
+            return
+    
+        declare @IndexList table (
+            Id int identity,
+            IndexName varchar(124),
+            IndexDescription varchar(max),
+            IndexKeys varchar(max)
+        )
+    
+        insert @IndexList(IndexName, IndexDescription, IndexKeys)
+            exec sp_helpindex @TableNameFull
+    
+        if (select count(*) from @IndexList) > 0
+        begin
+         
+
+         while exists (select 1 from @IndexList) 
+         begin
+             declare @Id int, @IndexName varchar(124), @IndexDescription varchar(max), @IndexKeys varchar(max)
+             select top 1 @Id = Id, @IndexName = IndexName, @IndexDescription = IndexDescription, @IndexKeys = IndexKeys from @IndexList order by Id
+             delete from @IndexList where Id = @Id
+
+             declare @Clustered varchar(10), @Unique varchar(7)
+
+             select @Clustered = case when patindex('%nonclustered%', @IndexDescription) > 0 then '' else ' clustered ' end
+             select @Unique = case when patindex('%unique%', @IndexDescription) > 0 then ' unique ' else '' end
+
+     
+   select @execSQL = CHAR(9) + 'create' + @Unique + @Clustered + ' index [' + @IndexName + '] on [' + @SchemaName  + '].[' + @TableName + '' + @Postfix + '](' + @IndexKeys + ') ON ' + @FileGroup
+     
+         end
+
+  
+        end
+       end
+       go
+
+
+
+        </DirectInput>
+					 
+        </ExecuteSQL>
+					 
+			    <ExecuteSQL Name="Fill Object Variable" ConnectionName="DBConnection.PartitionConfigServer" ResultSet="Full">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Create Proc for CREATE INDEX.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Results>
+            <Result Name="0" VariableName="User.Tables" />
+          </Results>
+          <DirectInput>SELECT 
+         [Schema]
+         ,[Table]
+         ,[CurrentFileGroup]
+    
+  FROM [vulkan].[SwitchConfiguration]
+
+  WHERE SubSystemName = '<#=subSystem#>'  
+	  
+	  AND Active = 'y' </DirectInput>
+        </ExecuteSQL>
+						
+			  		        <ForEachAdoLoop Name="For Each Partioned Table" SourceVariableName="User.Tables" ConstraintMode="Parallel">
+				       <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Fill Object Variable.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+						
+						<Variables>
+                      
+                    </Variables>
+                    <VariableMappings>
+					    	<VariableMapping Name="0" VariableName="User.Schema" />
+                            <VariableMapping Name="1" VariableName="User.Table" />
+                            <VariableMapping Name="2" VariableName="User.CurrentFileGroup" />
+                    </VariableMappings>
+                     
+                    <!-- execute some tasks using the variables passed from the dataset -->
+			  
+			  
+			      <Tasks>
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+        <ExecuteSQL Name="Create Shadow Table" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+        
+          <DirectInput>
+DECLARE @table NVARCHAR(200) = ?
+DECLARE @sql NVARCHAR(max)
+DECLARE @schema NVARCHAR(200) = ?
+
+SET @sql =
+
+'
+
+SELECT *
+ INTO '+ @schema + '.' + @table + '_shadow
+  FROM  '+ @schema + '.' + @table + '
+
+  WHERE 0 = 1
+
+  '
+
+
+  EXEC sys.sp_executesql @sql</DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.Table" Length="-1" DataType="String" />
+			  <Parameter Name="1" VariableName="User.Schema" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+					  
+					  
+					  
+			  
+			  
+					  
+					  
+			  
+			   <ExecuteSQL Name="Generate Create Script for Index" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Create Shadow Table.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput>EXECUTE ? = [dbo].[Script_CreateIndexXZY]  
+  ?
+  ,'_shadow'
+  ,?
+  ,? OUTPUT
+   ,?		  </DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.ReturnValue" Direction="ReturnValue" Length="-1" DataType="Int32" />
+            <Parameter Name="1" VariableName="User.Table" Length="-1" DataType="String" />
+            <Parameter Name="3" VariableName="User.CreateIndex" Direction="Output" Length="-1" DataType="String" />
+            <Parameter Name="2" VariableName="User.CurrentFileGroup" Length="-1" DataType="String" />
+			  <Parameter Name="4" VariableName="User.Schema" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+			  
+			  <ExecuteSQL Name="Create Index" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Generate Create Script for Index.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput> EXEC sp_executesql ?</DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.CreateIndex" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+			  
+			  <ExecuteSQL Name="Get Partition Number" ConnectionName="<#=destSrvr#>.<#=destDbName#>" ResultSet="SingleRow">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Create Index.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Results>
+            <Result Name="partition_number" VariableName="User.PartionNumber" />
+          </Results>
+          <DirectInput>SELECT DISTINCT
+        p.partition_number AS partition_number ,
+        ds.name AS partition_filegroup 
+
+FROM    sys.destination_data_spaces AS dds
+        JOIN sys.data_spaces AS ds ON dds.data_space_id = ds.data_space_id
+        JOIN sys.partition_schemes AS ps ON dds.partition_scheme_id = ps.data_space_id
+        JOIN sys.partition_functions AS pf ON ps.function_id = pf.function_id
+        LEFT JOIN sys.partition_range_values AS rv ON pf.function_id = rv.function_id
+                                                        AND dds.destination_id = CASE pf.boundary_value_on_right
+                                                                                    WHEN 0 THEN rv.boundary_id
+                                                                                    ELSE rv.boundary_id + 1
+                                                                                END
+        LEFT JOIN sys.indexes AS si ON dds.partition_scheme_id = si.data_space_id
+        LEFT JOIN sys.partitions AS p ON si.object_id = p.object_id
+                                            AND si.index_id = p.index_id
+                                            AND dds.destination_id = p.partition_number
+        LEFT JOIN sys.dm_db_partition_stats AS dbps ON p.object_id = dbps.object_id
+                                                        AND p.partition_id = dbps.partition_id
+
+WHERE ds.name = ?</DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.CurrentFileGroup" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+					  
+					  
+					  
+	  <ExecuteSQL Name="Fix table compression" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Get Partition Number.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput>  <![CDATA[
+DECLARE @schema NVARCHAR(200) = ?   
+DECLARE @table NVARCHAR(200) = ?
+
+DECLARE @part NVARCHAR(200)= ?
+DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table
+DECLARE @shadow NVARCHAR(200)= @schema + '.' + @table + '_shadow'
+DECLARE @compression NVARCHAR(200)
+DECLARE @sql NVARCHAR(max)
+
+
+;WITH GetCompression AS (
+
+SELECT  SCHEMA_NAME(so.schema_id) AS schema_name ,
+        OBJECT_NAME(p.object_id) AS object_name ,
+        p.partition_number ,
+        p.data_compression_desc ,
+        dbps.row_count ,
+        dbps.reserved_page_count * 8 / 1024. AS reserved_mb ,
+        si.index_id ,
+        CASE WHEN si.index_id = 0 THEN '(heap!)'
+                ELSE si.name
+        END AS index_name ,
+        si.is_unique ,
+        si.data_space_id ,
+        mappedto.name AS mapped_to_name ,
+        mappedto.type_desc AS mapped_to_type_desc ,
+        partitionds.name AS partition_filegroup ,
+        pf.name AS pf_name ,
+        pf.type_desc AS pf_type_desc ,
+        pf.fanout AS pf_fanout ,
+        pf.boundary_value_on_right ,
+        ps.name AS partition_scheme_name ,
+        rv.value AS range_value
+FROM    sys.partitions p
+JOIN    sys.objects so
+        ON p.object_id = so.object_id
+            AND so.is_ms_shipped = 0
+LEFT JOIN sys.dm_db_partition_stats AS dbps
+        ON p.object_id = dbps.object_id
+            AND p.partition_id = dbps.partition_id
+JOIN    sys.indexes si
+        ON p.object_id = si.object_id
+            AND p.index_id = si.index_id
+LEFT JOIN sys.data_spaces mappedto
+        ON si.data_space_id = mappedto.data_space_id
+LEFT JOIN sys.destination_data_spaces dds
+        ON si.data_space_id = dds.partition_scheme_id
+            AND p.partition_number = dds.destination_id
+LEFT JOIN sys.data_spaces partitionds
+        ON dds.data_space_id = partitionds.data_space_id
+LEFT JOIN sys.partition_schemes AS ps
+        ON dds.partition_scheme_id = ps.data_space_id
+LEFT JOIN sys.partition_functions AS pf
+        ON ps.function_id = pf.function_id
+LEFT JOIN sys.partition_range_values AS rv
+        ON pf.function_id = rv.function_id
+            AND dds.destination_id = CASE pf.boundary_value_on_right
+                                        WHEN 0 THEN rv.boundary_id
+                                        ELSE rv.boundary_id + 1
+										END
+    
+)
+
+SELECT @compression = GetCompression.data_compression_desc
+FROM GetCompression
+WHERE 
+
+GetCompression.object_name = @table AND 
+GetCompression.schema_name = @schema AND
+GetCompression.partition_number = @part
+
+IF @compression <> 'NONE' 
+BEGIN
+
+SET @sql =
+
+'ALTER TABLE '+ @shadow +' REBUILD PARTITION = ALL
+WITH 
+(DATA_COMPRESSION = '+ @compression +'
+)'
+    
+END
+
+EXEC sys.sp_executesql @sql ]]> 
+		  
+		  </DirectInput>
+          <Parameters>
+			  <Parameter Name="0" VariableName="User.Schema" Length="-1" DataType="String" />
+            <Parameter Name="1" VariableName="User.Table" Length="-1" DataType="String" />
+            <Parameter Name="2" VariableName="User.PartionNumber" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>				  
+					  
+					  
+					  
+			  
+			    <ExecuteSQL Name="SWITCH PARTITION" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Fix table compression.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput>
+DECLARE @schema NVARCHAR(200) = ?   
+DECLARE @table NVARCHAR(200) = ?
+
+DECLARE @part NVARCHAR(200)= ?
+DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table
+DECLARE @switch NVARCHAR(200)= @schema + '.' + @table + '_shadow'
+DECLARE @sql NVARCHAR(max)
+
+
+SET @sql =
+'
+ALTER TABLE '+ @schematable +'
+SWITCH PARTITION ' + @part + ' TO ' + @switch
+
+
+
+EXEC sys.sp_executesql @sql
+		  
+		  </DirectInput>
+          <Parameters>
+			  <Parameter Name="0" VariableName="User.Schema" Length="-1" DataType="String" />
+            <Parameter Name="1" VariableName="User.Table" Length="-1" DataType="String" />
+            <Parameter Name="2" VariableName="User.PartionNumber" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+			  
+			  
+			   <ExecuteSQL Name="Rename Tables" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="SWITCH PARTITION.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput> 
+	
+  
+    DECLARE @schema NVARCHAR(200) = ?
+   DECLARE @table NVARCHAR(200) = ?
+   DECLARE @newtablename NVARCHAR(200) = 'partition_' + @table
+
+   DECLARE @schemaoldtablename NVARCHAR(200) = @schema + '.' + @table
+   DECLARE @schemanewtablename NVARCHAR(200) = 'partition_' + @table
+
+  EXEC sp_rename @schemaoldtablename, @schemanewtablename
+
+
+     DECLARE @schema2 NVARCHAR(200) = ?
+   DECLARE @table2 NVARCHAR(200) = ?
+   DECLARE @newtablename2 NVARCHAR(200) = @table
+
+   DECLARE @schemaoldtablename2 NVARCHAR(200) = @schema2 + '.' + @table2 +  '_shadow'
+   DECLARE @schemanewtablename2 NVARCHAR(200) = @table
+
+  EXEC sp_rename @schemaoldtablename2, @schemanewtablename2
+
+		  
+		  </DirectInput>
+          <Parameters>
+			 <Parameter Name="0" VariableName="User.Schema" Length="-1" DataType="String" />
+            <Parameter Name="1" VariableName="User.Table" Length="-1" DataType="String" />
+            <Parameter Name="2" VariableName="User.Schema" Length="-1" DataType="String" />
+            <Parameter Name="3" VariableName="User.Table" Length="-1" DataType="String" />
+          </Parameters>
+        </ExecuteSQL>
+			  
+  
+				            </Tasks>
+                         
+                </ForEachAdoLoop>
+			  
+			  		   <ExecuteSQL Name="Drop Create Index Procedure" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="For Each Partioned Table.Output" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <DirectInput> if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')
+                                    drop proc Script_CreateIndexXZY
+                         go
+    
+</DirectInput>
+   
+        </ExecuteSQL>
+			  
+			  
+	
+			  
+			     <!--End of Specific task-->
+            
+           </Tasks>
+      
+      
+        </Container>
+        
+        
+		 
+			        </Tasks>
+      
+      
+      
+		</Package>
+			
+			
+		<#}#>
+		
+		
+		
+	</Packages>
+	
+	 
+	
+	
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="06/15/2017 19:21:50" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="VulkanDemoProd" DTS:CreatorName="kennem" DTS:DTSID="{FF05ADF0-4ED1-41FF-B358-8EF34D98BDFA}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="RestorePartialDestinationDatabase_VulkanDemoPartition_VulkanProd" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{7E74658D-A229-4AEE-B638-7362D5181128}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{FC6A5EAD-D36D-4B7F-A237-2DD02E8A49A2}" DTS:ObjectName="VulkanDemoTest.master" DTS:refId="Package.ConnectionManagers[VulkanDemoTest.master]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=VulkanDemoTest;initial catalog=master;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3878EE12-E3D6-40F2-8100-468326666176}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="FilePathBakFileDestinationServer">
+      <DTS:VariableValue DTS:DataType="8">F:/Backup/VulkanProd.bak</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5E386FB9-62C1-445F-A91B-C842C9DB8D31}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentRecoveryMode">
+      <DTS:VariableValue DTS:DataType="8">SIMPLE</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{F22EDF55-0954-48C1-A518-8E2FE03A80CA}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2F3304D2-5AA6-4257-BE72-74F01E8BCB07}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set Recovery Mode to full" DTS:refId="Package\Pakkens innhold\Set Recovery Mode to full" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="&#xA;DECLARE @RecoveryMode VARCHAR(6) = (SELECT recovery_model_desc AS CurrentRecoveryMode&#xA;   FROM sys.databases  &#xA;      WHERE name = 'VulkanProd')&#xA;&#xA;IF @RecoveryMode = 'SIMPLE'&#xA;BEGIN&#xA;     ALTER DATABASE VulkanProd&#xA;  SET RECOVERY FULL WITH NO_WAIT&#xA;END&#xA;&#xA;SELECT @RecoveryMode AS CurrentRecoveryMode &#xA;   " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::CurrentRecoveryMode" SQLTask:ResultName="CurrentRecoveryMode"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{33C21D38-B2CB-4B22-A154-BC5794D604C6}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Kill Connection to VulkanProd" DTS:refId="Package\Pakkens innhold\Kill Connection to VulkanProd" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;     &#xA;             DECLARE @DatabaseName AS VARCHAR(100)&#xA;&#xA;       SET @DatabaseName = 'VulkanProd'&#xA;&#xA;       USE master&#xA;&#xA;       SET NOCOUNT ON&#xA;       DECLARE @DBName varchar(50)&#xA;       DECLARE @spidstr varchar(8000)&#xA;       DECLARE @ConnKilled smallint&#xA;       SET @ConnKilled=0&#xA;       SET @spidstr = ''&#xA;       &#xA;       IF EXISTS (SELECT name FROM master.sys.databases WHERE name = @DatabaseName)&#xA;&#xA;       Set @DBName = @DatabaseName&#xA;       IF db_id(@DBName) &lt; 4&#xA;       BEGIN&#xA;       PRINT 'Connections to system databases cannot be killed'&#xA;       RETURN&#xA;       END&#xA;       SELECT @spidstr=coalesce(@spidstr,'','' )+'kill '+convert(varchar, spid)+ '; '&#xA;       FROM master..sysprocesses WHERE dbid=db_id(@DBName)&#xA;&#xA;       IF LEN(@spidstr) &gt; 0&#xA;       BEGIN&#xA;       EXEC(@spidstr)&#xA;       SELECT @ConnKilled = COUNT(1)&#xA;       FROM master..sysprocesses WHERE dbid=db_id(@DBName)&#xA;       &#xA;       END &#xA;     &#xA;     &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{B24A05ED-C158-4524-A9FA-5F7A851729F0}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Restore VulkanProd" DTS:refId="Package\Pakkens innhold\Restore VulkanProd" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;     &#xA;             RESTORE DATABASE [VulkanProd] &#xA;                            &#xA; FILE = 'FG2015',&#xA; FILE = 'FG2016',&#xA; FILE = 'FG2017',&#xA; FILE = 'MainDataGroup',&#xA; FILE = 'MainIndexGroup',&#xA; FILE = 'VulkanProd'&#xA;                            FROM DISK = 'F:/Backup/VulkanProd.bak'&#xA;&#xA;       WITH &#xA;       &#xA;       REPLACE,&#xA;       NOUNLOAD&#xA;      &#xA;&#xA;;&#xA;&#xA;     &#xA;     &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{D48005DC-DF47-4E64-AB1B-DB20C89D5067}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set VulkanProd Recovery Mode" DTS:refId="Package\Pakkens innhold\Set VulkanProd Recovery Mode" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="VulkanDemoTest.master" SQLTask:SqlStatementSource="&#xA;     &#xA;       &#xA;      &#xA;      &#xA;      &#xA;      BEGIN&#xA;       ALTER DATABASE VulkanProd&#xA;               SET RECOVERY SIMPLE WITH NO_WAIT&#xA;      END;&#xA;    &#xA;     &#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{D16EF859-3D27-4B31-857E-408FF6160C3D}" DTS:From="Package\Pakkens innhold\Set Recovery Mode to full" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Set Recovery Mode to full_To_Kill Connection to VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Set Recovery Mode to full_To_Kill Connection to VulkanProd]" DTS:To="Package\Pakkens innhold\Kill Connection to VulkanProd"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{56102080-50CE-4475-B2E1-69374C2AC9E9}" DTS:From="Package\Pakkens innhold\Kill Connection to VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Kill Connection to VulkanProd_To_Restore VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Kill Connection to VulkanProd_To_Restore VulkanProd]" DTS:To="Package\Pakkens innhold\Restore VulkanProd"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{FD6CBD5F-9F0E-4A34-99E2-A620922487F4}" DTS:From="Package\Pakkens innhold\Restore VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Restore VulkanProd_To_Set VulkanProd Recovery Mode" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Restore VulkanProd_To_Set VulkanProd Recovery Mode]" DTS:To="Package\Pakkens innhold\Set VulkanProd Recovery Mode"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>
