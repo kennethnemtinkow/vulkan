@@ -2,6 +2,10 @@
 	
 <!--Get Connections-->
 
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+
+
+
 <# 
      String ConfigConnString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1;"; 
 	DataTable databaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer, DestinationDatabase FROM [vulkan].[SwitchConfiguration]");
@@ -36,6 +40,9 @@
 	
 	
 	<Packages>
+	
+	
+  <!-- ConnString:  Add the connection to your config server/database here  -->
 		
 		<# foreach(DataRow swch in switchList.Rows) 
 		{
