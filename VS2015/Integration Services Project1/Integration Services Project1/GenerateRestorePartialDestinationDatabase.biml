@@ -2,6 +2,8 @@
 	
 <!--Get Connections-->
 
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+
 <# 
     String ConfigConnString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"; 
 	DataTable restoreList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT SubSystemName, DestinationServer, DestinationDatabase, CASE WHEN FullOrPartialBackup = 'Partial' THEN 'PARTIAL' ELSE 'FULL' END AS PartialBackupRestore, BackupFilePathBakFileDestinationServer,RecoverModeDestinationDatabase FROM [vulkan].[BackupRestorePartialDatabaseConfiguration] WHERE Active = 'y'");
@@ -36,6 +38,8 @@
 	
 	
 	<Packages>
+	
+	  <!-- ConnString:  Add the connection to your config server/database here  -->
 		
 		<# foreach(DataRow rst in restoreList.Rows) 
 		{

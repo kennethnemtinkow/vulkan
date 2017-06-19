@@ -1,5 +1,8 @@
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
   <!--connection to get databases to generate packages for-->
+  
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+  
   <# 
     String ConfigConnString="Data Source=VulkanDemoProd;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"; 
 	DataTable backupList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT SourceServer, SubSystemName, SourceDatabase, CASE WHEN FullOrPartialBackup = 'Partial' THEN 'PARTIAL' ELSE 'FULL' END AS PartialBackupRestore, FilePathBakFileSourceServer FROM [vulkan].[BaseConfiguration] WHERE Active = 'y'");
@@ -20,6 +23,11 @@
 	<#}#>
      </Connections>
   <Packages>
+  
+  
+  <!-- ConnString:  Add the connection to your config server/database here  -->
+  
+  
     <# foreach(DataRow bck in backupList.Rows) {
 			String srvr = bck["SourceServer"].ToString();
 			String subSystem = bck["SubSystemName"].ToString();
