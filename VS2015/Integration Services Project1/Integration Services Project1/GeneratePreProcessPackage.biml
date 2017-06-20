@@ -377,15 +377,15 @@ SELECT
                 ON  tmp2.object_id = I.object_id
                 AND tmp2.index_id = I.index_id
     --WHERE  
-            --I.is_primary_key = 0
-      --     AND 
-           --I.is_unique_constraint = 0
+    --I.is_primary_key = 0
+     --     AND 
+     --I.is_unique_constraint = 0
            AND T.name NOT LIKE 'mt_%'
-           --AND I.name NOT LIKE 'mt_%'
+      --AND I.name NOT LIKE 'mt_%'
               AND I.Object_id = (	SELECT TOP 1 object_id
 																	FROM  sys.tables
 																	WHERE schema_id = SCHEMA_ID(@CurrentSchema) AND name = @Table  )--Comment for all tables
-               --AND I.name = 'IX_Address_PostalCode' --comment for all indexes 
+    --AND I.name = 'IX_Address_PostalCode' --comment for all indexes 
     ORDER BY T.name,I.name
 			  
 			  </DirectInput>

@@ -166,10 +166,10 @@
       begin
 
 
- --DECLARE @TableName varchar(124) = 'EDB_Grunnuttrekk_KR_ROLL'
- --DECLARE @Postfix NVARCHAR(200) = '_switch'
- --DECLARE @FileGroup NVARCHAR(200) = 'FG2014'
- --DECLARE @SchemaName NVARCHAR(200) = 'dbo'
+ --DECLARE @TableName varchar(124) = ''
+ --DECLARE @Postfix NVARCHAR(200) = ''
+ --DECLARE @FileGroup NVARCHAR(200) = ''
+ --DECLARE @SchemaName NVARCHAR(200) = ''
 
 
 
