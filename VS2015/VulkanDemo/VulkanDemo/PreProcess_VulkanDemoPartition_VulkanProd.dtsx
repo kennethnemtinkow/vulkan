@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="02/11/2018 10:47:30" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="sql2016dev1" DTS:CreatorName="sql_dev_1_admin" DTS:DTSID="{73A5EC97-CB6A-4215-85E5-8B6BF0B24060}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="PreProcess_VulkanDemoPartition_VulkanProd" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{94F9D64E-8C70-4546-9F52-6A2C65F2E970}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{7BE9D88B-CE72-4A62-91A8-C288BA0EF4E8}" DTS:ObjectName="sql2016dev1.VulkanProd" DTS:refId="Package.ConnectionManagers[sql2016dev1.VulkanProd]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=sql2016dev1;initial catalog=VulkanProd;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{5F82F48B-B052-43A8-9BE9-3BB91E368EC2}" DTS:ObjectName="DBConnection.PartitionConfigServer" DTS:refId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=sql2016dev1;initial catalog=VulkanConfig;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B8A22C01-0A8A-4DE3-A31E-19A077E587FB}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="LogServerConnectionstring">
+      <DTS:VariableValue DTS:DataType="8">Data Source=utvsql195dwh.spvutvikling.no;Initial Catalog=ConfigLog;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{300BCF38-B7F8-4DB9-ADE8-F3F960CA56C0}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentTable">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6F07D418-322C-457F-B728-EB0978B08A9B}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="DestinationDatabase">
+      <DTS:VariableValue DTS:DataType="8">VulkanProd</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{842D94DA-35CA-4D61-9148-5283F74F0287}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="DestinationServer">
+      <DTS:VariableValue DTS:DataType="8">10.0.0.5</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{81CAFAC1-E6BC-464D-B20B-0EF251F301D4}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SourceDatabase">
+      <DTS:VariableValue DTS:DataType="8">VulkanProd</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{2B4A2BB3-0BEA-417F-A22B-CA823618DBF5}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SourceServer">
+      <DTS:VariableValue DTS:DataType="8">sql2016dev1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4B55A406-A9BA-4780-91C5-FF69BBC593E1}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SubSystem">
+      <DTS:VariableValue DTS:DataType="8">VulkanDemoPartition</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{688339C2-DA6C-432C-9458-0F0EC4C1AF07}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="Tables">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{7838ED2A-92FC-4E61-B62D-62A0423F5DB7}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="RunDate">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{C8B8F896-81A9-4834-B6C9-B6F84C803A82}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="DropIndexScripts">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B33B0263-E614-4B98-9690-0BB11EB297F5}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentDropIndexScript">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6019C312-5DEC-4204-BCE4-1325BF99D126}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentSchema">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{6639D3DB-0017-4974-B573-6D51867135E9}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{1D5FBDD5-9813-4909-8011-0431F2963EB7}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Set RunData Variable" DTS:refId="Package\Pakkens innhold\Set RunData Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="&#xA;           SELECT CAST(CONVERT(VARCHAR(20), GETDATE(),20) AS DATETIME) AS RunDate&#xA;          &#xA;        " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::RunDate" SQLTask:ResultName="RunDate"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{27A77C22-42FD-4BE2-96EC-7E54B5FEE153}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate NonClustedIndexProcessConfiguration Table" DTS:refId="Package\Pakkens innhold\Truncate NonClustedIndexProcessConfiguration Table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:SqlStatementSource="&#xA;        &#xA;        TRUNCATE TABLE [vulkan].[NonClustedIndexProcessConfiguration]&#xA;          &#xA;     " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{27123B4D-14C2-486B-B5AF-ECCFD87A77BE}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fill Tables Variable" DTS:refId="Package\Pakkens innhold\Fill Tables Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_Rowset" SQLTask:SqlStatementSource="SELECT &#xA;          [Schema], [Table]&#xA;     &#xA;          FROM  [vulkan].[PartitionedTablesConfiguration]&#xA;&#xA;          WHERE [SubSystemName] = 'VulkanDemoPartition' AND Active = 'y'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::Tables" SQLTask:ResultName="0"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="STOCK:FOREACHLOOP" DTS:DTSID="{B2B4CE05-03D8-46BD-9F28-6AD532D6E22C}" DTS:ExecutableType="STOCK:FOREACHLOOP" DTS:LocaleID="-1" DTS:ObjectName="For Each Partitioned Table in VulkanProd" DTS:refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd">
+          <DTS:Executables>
+            <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{7452CCC5-C0CF-4BEF-8AAB-1B32DD8CEFF4}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Data Flow Task" DTS:refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+                  <components>
+                    <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Generate Index Scripts" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts" usesDispositions="true" version="7">
+                      <connections>
+                        <connection connectionManagerID="{7BE9D88B-CE72-4A62-91A8-C288BA0EF4E8}:external" connectionManagerRefId="Package.ConnectionManagers[sql2016dev1.VulkanProd]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Connections[OleDbConnection]"></connection>
+                      </connections>
+                      <outputs>
+                        <output name="Output" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output]">
+                          <externalMetadataColumns isUsed="True">
+                            <externalMetadataColumn dataType="wstr" length="200" name="SubSystemName" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SubSystemName]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="SourceServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SourceServer]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="SourceDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SourceDatabase]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="DestinationServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DestinationServer]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="DestinationDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DestinationDatabase]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="CurrentSchema" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CurrentSchema]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="200" name="CurrentTable" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CurrentTable]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="dbTimeStamp2" name="RunDate" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[RunDate]" scale="7"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="1020" name="DropIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DropIndexScript]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="nText" name="CreateIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CreateIndexScript]"></externalMetadataColumn>
+                          </externalMetadataColumns>
+                          <outputColumns>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SubSystemName]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SubSystemName]" name="SubSystemName" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SubSystemName]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SourceServer]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceServer]" name="SourceServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceServer]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[SourceDatabase]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceDatabase]" name="SourceDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceDatabase]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DestinationServer]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationServer]" name="DestinationServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationServer]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DestinationDatabase]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationDatabase]" name="DestinationDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationDatabase]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CurrentSchema]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentSchema]" name="CurrentSchema" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentSchema]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CurrentTable]" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentTable]" name="CurrentTable" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentTable]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="dbTimeStamp2" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[RunDate]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[RunDate]" name="RunDate" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[RunDate]" scale="7" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[DropIndexScript]" length="1020" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DropIndexScript]" name="DropIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DropIndexScript]" truncationRowDisposition="FailComponent"></outputColumn>
+                            <outputColumn dataType="nText" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].ExternalColumns[CreateIndexScript]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CreateIndexScript]" name="CreateIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CreateIndexScript]" truncationRowDisposition="FailComponent"></outputColumn>
+                          </outputColumns>
+                        </output>
+                        <output isErrorOut="true" name="Error" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error]">
+                          <externalMetadataColumns></externalMetadataColumns>
+                          <outputColumns>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SubSystemName]" name="SubSystemName" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SubSystemName]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SourceServer]" name="SourceServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SourceServer]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SourceDatabase]" name="SourceDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[SourceDatabase]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DestinationServer]" name="DestinationServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DestinationServer]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DestinationDatabase]" name="DestinationDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DestinationDatabase]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CurrentSchema]" name="CurrentSchema" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CurrentSchema]"></outputColumn>
+                            <outputColumn dataType="wstr" length="200" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CurrentTable]" name="CurrentTable" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CurrentTable]"></outputColumn>
+                            <outputColumn dataType="dbTimeStamp2" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[RunDate]" name="RunDate" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[RunDate]" scale="7"></outputColumn>
+                            <outputColumn dataType="wstr" length="1020" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DropIndexScript]" name="DropIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[DropIndexScript]"></outputColumn>
+                            <outputColumn dataType="nText" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CreateIndexScript]" name="CreateIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[CreateIndexScript]"></outputColumn>
+                            <outputColumn dataType="i4" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                            <outputColumn dataType="i4" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                          </outputColumns>
+                        </output>
+                      </outputs>
+                      <properties>
+                        <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                        <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                        <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                        <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">
+				  
+				  
+DECLARE @Table NVARCHAR(200)
+ DECLARE @RunDate DATETIME2
+ DECLARE @SubSystem NVARCHAR(200)
+ DECLARE @DestinationServer NVARCHAR(200)
+DECLARE @SourceServer NVARCHAR(200)
+DECLARE @SourceDatabase NVARCHAR(200)
+DECLARE @DestinationDatabase NVARCHAR(200)
+DECLARE @CurrentSchema NVARCHAR(200)
+
+
+SET @Table =  ?
+ SET @SubSystem =  ?
+ SET @DestinationServer =  ?
+ SET @SourceServer =  ?
+ SET @SourceDatabase =  ?
+ SET @DestinationDatabase =  ?
+ SET @RunDate =  ?
+ SET @CurrentSchema =  ?
+ 
+
+SELECT 
+@SubSystem AS SubSystemName, 
+@SourceServer AS SourceServer,
+@SourceDatabase AS SourceDatabase, 
+@DestinationServer AS DestinationServer, 
+@DestinationDatabase AS DestinationDatabase,
+@CurrentSchema AS CurrentSchema,
+@Table AS CurrentTable, 
+@RunDate AS RunDate, 
+
+'IF EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = object_id('''+ @CurrentSchema + '.' + @Table + ''') AND NAME ='''+ I.name +''' )  DROP INDEX ['+ I.name +'] ON [' + SCHEMA_NAME(T.schema_id) + '].[' + T.name + ']' AS DropIndexScript,
+ ' IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = object_id('''+ @CurrentSchema + '.' + @Table + ''') AND NAME ='''+ I.name +''' ) 
+ CREATE ' +
+           CASE 
+                WHEN I.is_unique = 1 THEN ' UNIQUE '
+                ELSE ''
+           END +
+           I.type_desc COLLATE DATABASE_DEFAULT + ' INDEX [' +
+           I.name + '] ON [' +
+           SCHEMA_NAME(T.schema_id) + '].[' + T.name + '] ( ' +
+           KeyColumns + ' )  ' +
+           ISNULL(' INCLUDE (' + IncludedColumns + ' ) ', '') +
+           ISNULL(' WHERE  ' + I.filter_definition, '') + ' WITH ( ' +
+           CASE 
+                WHEN I.is_padded = 1 THEN ' PAD_INDEX = ON '
+                ELSE ' PAD_INDEX = OFF '
+           END + ',' +
+           'FILLFACTOR = ' + CONVERT(
+               CHAR(5),
+               CASE 
+                    WHEN I.fill_factor = 0 THEN 100
+                    ELSE I.fill_factor
+               END
+           ) + ',' +
+           -- default value 
+           'SORT_IN_TEMPDB = OFF ' + ',' +
+           CASE 
+                WHEN I.ignore_dup_key = 1 THEN ' IGNORE_DUP_KEY = ON '
+                ELSE ' IGNORE_DUP_KEY = OFF '
+           END + ',' +
+           CASE 
+                WHEN ST.no_recompute = 0 THEN ' STATISTICS_NORECOMPUTE = OFF '
+                ELSE ' STATISTICS_NORECOMPUTE = ON '
+           END + ',' +
+           ' ONLINE = OFF ' + ',' +
+           CASE 
+                WHEN I.allow_row_locks = 1 THEN ' ALLOW_ROW_LOCKS = ON '
+                ELSE ' ALLOW_ROW_LOCKS = OFF '
+           END + ',' +
+           CASE 
+                WHEN I.allow_page_locks = 1 THEN ' ALLOW_PAGE_LOCKS = ON '
+                ELSE ' ALLOW_PAGE_LOCKS = OFF '
+           END + ' ) ON [' +
+           DS.name + '] '  [CreateIndexScript]
+ FROM   sys.indexes I
+           JOIN sys.tables T
+                ON  T.object_id = I.object_id
+           JOIN sys.sysindexes SI
+                ON  I.object_id = SI.id
+                AND I.index_id = SI.indid
+				AND I.type_desc = 'NONCLUSTERED'
+           JOIN (
+                    SELECT *
+                    FROM   (
+                               SELECT IC2.object_id,
+                                      IC2.index_id,
+                                      STUFF(
+                                          (
+                                              SELECT ' , ' + C.name + CASE 
+                                                                           WHEN MAX(CONVERT(INT, IC1.is_descending_key)) 
+                                                                                = 1 THEN 
+                                                                                ' DESC '
+                                                                           ELSE 
+                                                                                ' ASC '
+                                                                      END
+                                              FROM   sys.index_columns IC1
+                                                     JOIN sys.columns C
+                                                          ON  C.object_id = IC1.object_id
+                                                          AND C.column_id = IC1.column_id
+                                                          AND IC1.is_included_column = 
+                                                              0
+                                              WHERE  IC1.object_id = IC2.object_id
+                                                     AND IC1.index_id = IC2.index_id
+                                              GROUP BY
+                                                     IC1.object_id,
+                                                     C.name,
+                                                     index_id
+                                              ORDER BY
+                                                     MAX(IC1.key_ordinal) 
+                                                     FOR XML PATH('')
+                                          ),
+                                          1,
+                                          2,
+                                          ''
+                                      ) KeyColumns
+                               FROM   sys.index_columns IC2 
+                                     WHERE IC2.Object_id =  (	SELECT TOP 1 object_id
+																	FROM  sys.tables
+																	WHERE schema_id = SCHEMA_ID(@CurrentSchema) AND name = @Table  )--Comment for all tables
+                               GROUP BY
+                                      IC2.object_id,
+                                      IC2.index_id
+                           ) tmp3
+                )tmp4
+                ON  I.object_id = tmp4.object_id
+                AND I.index_id = tmp4.index_id
+
+
+           JOIN sys.stats ST
+                ON  ST.object_id = I.object_id
+                AND ST.stats_id = I.index_id
+           JOIN sys.data_spaces DS
+                ON  I.data_space_id = DS.data_space_id
+           JOIN sys.filegroups FG
+                ON  I.data_space_id = FG.data_space_id
+           LEFT JOIN (
+                    SELECT *
+                    FROM   (
+                               SELECT IC2.object_id,
+                                      IC2.index_id,
+                                      STUFF(
+                                          (
+                                              SELECT ' , ' + C.name
+                                              FROM   sys.index_columns IC1
+                                                     JOIN sys.columns C
+                                                          ON  C.object_id = IC1.object_id
+                                                          AND C.column_id = IC1.column_id
+                                                          AND IC1.is_included_column = 
+                                                              1
+                                              WHERE  IC1.object_id = IC2.object_id
+                                                     AND IC1.index_id = IC2.index_id
+                                              GROUP BY
+                                                     IC1.object_id,
+                                                     C.name,
+                                                     index_id 
+                                                     FOR XML PATH('')
+                                          ),
+                                          1,
+                                          2,
+                                          ''
+                                      ) IncludedColumns
+                               FROM   sys.index_columns IC2 
+                                     WHERE IC2.Object_id = (	SELECT TOP 1 object_id
+																	FROM  sys.tables
+																	WHERE schema_id = SCHEMA_ID(@CurrentSchema) AND name = @Table  )--Comment for all tables
+                               GROUP BY
+                                      IC2.object_id,
+                                      IC2.index_id
+                           ) tmp1
+                    WHERE  IncludedColumns IS NOT NULL
+                ) tmp2
+                ON  tmp2.object_id = I.object_id
+                AND tmp2.index_id = I.index_id
+    --WHERE  
+    --I.is_primary_key = 0
+     --     AND 
+     --I.is_unique_constraint = 0
+           AND T.name NOT LIKE 'mt_%'
+      --AND I.name NOT LIKE 'mt_%'
+              AND I.Object_id = (	SELECT TOP 1 object_id
+																	FROM  sys.tables
+																	WHERE schema_id = SCHEMA_ID(@CurrentSchema) AND name = @Table  )--Comment for all tables
+    --AND I.name = 'IX_Address_PostalCode' --comment for all indexes 
+    ORDER BY T.name,I.name
+			  
+			  </property>
+                        <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                        <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                        <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                        <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">2</property>
+                        <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping">"Parameter0:Input",User::CurrentTable;"Parameter1:Input",User::SubSystem;"Parameter2:Input",User::DestinationServer;"Parameter3:Input",User::SourceServer;"Parameter4:Input",User::SourceDatabase;"Parameter5:Input",User::DestinationDatabase;"Parameter6:Input",User::RunDate;"Parameter7:Input",User::CurrentSchema;</property>
+                      </properties>
+                    </component>
+                    <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="OLE DB Destination" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination" usesDispositions="true" version="4">
+                      <connections>
+                        <connection connectionManagerID="{5F82F48B-B052-43A8-9BE9-3BB91E368EC2}:external" connectionManagerRefId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"></connection>
+                      </connections>
+                      <inputs>
+                        <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Generate Index Scripts_Output_OLE DB Destination" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination]">
+                          <externalMetadataColumns isUsed="True">
+                            <externalMetadataColumn dataType="i4" name="ID" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[ID]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="SubSystemName" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SubSystemName]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="SourceServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SourceServer]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="SourceDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SourceDatabase]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="DestinationServer" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DestinationServer]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="DestinationDatabase" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DestinationDatabase]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="CurrentSchema" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CurrentSchema]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="255" name="CurrentTable" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CurrentTable]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="wstr" length="27" name="RunDate" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[RunDate]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="nText" name="DropIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DropIndexScript]"></externalMetadataColumn>
+                            <externalMetadataColumn dataType="nText" name="CreateIndexScript" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CreateIndexScript]"></externalMetadataColumn>
+                          </externalMetadataColumns>
+                          <inputColumns>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="SubSystemName" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SubSystemName]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SubSystemName]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[SubSystemName]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="SourceServer" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SourceServer]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceServer]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[SourceServer]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="SourceDatabase" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[SourceDatabase]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[SourceDatabase]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[SourceDatabase]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="DestinationServer" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DestinationServer]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationServer]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[DestinationServer]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="DestinationDatabase" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DestinationDatabase]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DestinationDatabase]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[DestinationDatabase]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="CurrentSchema" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CurrentSchema]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentSchema]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[CurrentSchema]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="200" cachedName="CurrentTable" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CurrentTable]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CurrentTable]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[CurrentTable]"></inputColumn>
+                            <inputColumn cachedDataType="dbTimeStamp2" cachedName="RunDate" cachedScale="7" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[RunDate]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[RunDate]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[RunDate]"></inputColumn>
+                            <inputColumn cachedDataType="wstr" cachedLength="1020" cachedName="DropIndexScript" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[DropIndexScript]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[DropIndexScript]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[DropIndexScript]"></inputColumn>
+                            <inputColumn cachedDataType="nText" cachedName="CreateIndexScript" externalMetadataColumnId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].ExternalColumns[CreateIndexScript]" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output].Columns[CreateIndexScript]" name="" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination].Columns[CreateIndexScript]"></inputColumn>
+                          </inputColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Outputs[Error]" synchronousInputId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination]">
+                          <externalMetadataColumns></externalMetadataColumns>
+                          <outputColumns>
+                            <outputColumn dataType="i4" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                            <outputColumn dataType="i4" lineageId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                          </outputColumns>
+                        </output>
+                      </outputs>
+                      <properties>
+                        <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                        <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">[vulkan].[NonClustedIndexProcessConfiguration]</property>
+                        <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                        <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                        <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                        <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                        <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                        <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                        <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                    </component>
+                  </components>
+                  <paths>
+                    <path endId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\OLE DB Destination.Inputs[Generate Index Scripts_Output_OLE DB Destination]" name="Generate Index Scripts_Output_OLE DB Destination" refId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task.Paths[Generate Index Scripts_Output_OLE DB Destination]" startId="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd\Data Flow Task\Generate Index Scripts.Outputs[Output]"></path>
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachEnumerator DTS:CreationName="Microsoft.ForEachADOEnumerator" DTS:DTSID="{C2D3AB13-9509-4F00-BD4C-E9B76AA9AC94}" DTS:ObjectName="{C2D3AB13-9509-4F00-BD4C-E9B76AA9AC94}">
+            <DTS:ObjectData>
+              <FEEADO EnumType="EnumerateRowsInFirstTable" VarName="User::Tables"></FEEADO>
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{94244BCD-10F5-4207-BC5B-4D6D8E01CCD5}" DTS:ObjectName="{94244BCD-10F5-4207-BC5B-4D6D8E01CCD5}" DTS:ValueIndex="0" DTS:VariableName="User::CurrentSchema"></DTS:ForEachVariableMapping>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{AB48F030-7A6F-44C9-B4DE-D19990FA2C99}" DTS:ObjectName="{AB48F030-7A6F-44C9-B4DE-D19990FA2C99}" DTS:ValueIndex="1" DTS:VariableName="User::CurrentTable"></DTS:ForEachVariableMapping>
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{A9988ED9-2B0F-4E91-BAFC-BC49872AEE72}" DTS:From="Package\Pakkens innhold\Set RunData Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Set RunData Variable_To_Truncate NonClustedIndexProcessConfiguration Table" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Set RunData Variable_To_Truncate NonClustedIndexProcessConfiguration Table]" DTS:To="Package\Pakkens innhold\Truncate NonClustedIndexProcessConfiguration Table"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{957E0DCE-E1B5-4196-9161-FDD9F005F071}" DTS:From="Package\Pakkens innhold\Truncate NonClustedIndexProcessConfiguration Table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate NonClustedIndexProcessConfiguration Table_To_Fill Tables Variable" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Truncate NonClustedIndexProcessConfiguration Table_To_Fill Tables Variable]" DTS:To="Package\Pakkens innhold\Fill Tables Variable"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{93D8AA16-3E32-4992-8316-75F353AE22A1}" DTS:From="Package\Pakkens innhold\Fill Tables Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fill Tables Variable_To_For Each Partitioned Table in VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Tables Variable_To_For Each Partitioned Table in VulkanProd]" DTS:To="Package\Pakkens innhold\For Each Partitioned Table in VulkanProd"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

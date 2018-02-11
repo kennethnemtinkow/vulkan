@@ -1,0 +1,203 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	
+<!--Get Connections-->
+
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+
+
+<# 
+    String ConfigConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1;"; 
+	DataTable restoreList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName],[DestinationServer],[DestinationDatabase],[SourceDataBase], [RecoverModeDestinationServer],CASE WHEN FullOrPartialBackup = 'Partial' THEN 'PARTIAL,' ELSE '' END AS PartialBackupRestore,[FilePathBakFileSourceServer],[FilePathBakFileDestinationServer],[FilePathBakFileDestinationServerRemoteAccess] FROM [vulkan].[BaseConfiguration] WHERE Active = 'y'");
+	DataTable srcdatabaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SourceServer],[SourceDatabase] FROM [vulkan].[PartitionedTablesConfiguration] WHERE Active = 'y'");
+	DataTable destdatabaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [DestinationServer],[DestinationDatabase] FROM [vulkan].[PartitionedTablesConfiguration] WHERE Active = 'y'");
+	DataTable serverList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer FROM [vulkan].[SwitchConfiguration] WHERE Active = 'y'");
+	DataTable indexList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName],[SourceServer],[SourceDatabase],[DestinationServer],[DestinationDatabase] FROM [vulkan].[PartitionedTablesConfiguration] WHERE Active = 'y'");
+	
+	#>
+	
+	
+	
+  <Connections>
+	 <# foreach(DataRow db in destdatabaseList.Rows) { 
+			String srvr = db["DestinationServer"].ToString();
+		    String dbName = db["DestinationDatabase"].ToString();
+	 #>
+	
+    <Connection Name="<#=srvr#>.<#=dbName#>" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=<#=dbName#>;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+     <#}#>
+		 
+		 
+	<# foreach(DataRow srv in serverList.Rows) {
+			String srvr = srv["DestinationServer"].ToString();
+	#>
+	<Connection Name="<#=srvr#>.master" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=master;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1;" />
+	<#}#>	 
+		
+	 <OleDbConnection Name="DBConnection.PartitionConfigServer" ConnectionString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"></OleDbConnection>
+  	
+	 
+   </Connections>	
+	
+	
+	
+	<Packages>
+		
+		  <!-- ConnString:  Add the connection to your config server/database here  -->
+		  
+		<# foreach(DataRow Inx in indexList.Rows) 
+		{
+					
+			String subSystem = Inx["SubSystemName"].ToString();
+			
+			String srcSrvr = Inx["SourceServer"].ToString();
+			
+			String destSrvr = Inx["DestinationServer"].ToString();
+			
+			String srcDbName = Inx["SourceDataBase"].ToString();
+			
+			String destDbName = Inx["DestinationDataBase"].ToString();
+	
+		    String ConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;User Id=vulkanbiml;Password=TitanStopSign2%;Persist Security Info=False;"; 
+			
+	
+			
+
+			
+			
+		#>
+		<Package Name="PostProcess_<#=subSystem#>_<#=srcDbName#>">
+		
+	 
+			
+	    <Variables>		
+			
+		 
+         <Variable Name="CurrentTable" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+			
+        <Variable Name="DestinationDatabase" DataType="String" IncludeInDebugDump="Exclude"><#=destDbName#></Variable>
+			
+        <Variable Name="DestinationServer" DataType="String" IncludeInDebugDump="Exclude"><#=destSrvr#></Variable>
+			
+        <Variable Name="SourceDatabase" DataType="String" IncludeInDebugDump="Exclude"><#=srcDbName#></Variable>
+			
+        <Variable Name="SourceServer" DataType="String" IncludeInDebugDump="Exclude"><#=srcSrvr#></Variable>
+			
+        <Variable Name="SubSystem" DataType="String" IncludeInDebugDump="Exclude"><#=subSystem#></Variable>
+			
+        <Variable Name="Tables" DataType="Object" IncludeInDebugDump="Include">0</Variable>
+			
+	    <Variable Name="RunDate" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+			
+			<Variable Name="CreateIndexScripts" DataType="Object" IncludeInDebugDump="Include">0</Variable>
+			
+			 <Variable Name="CurrentCreateIndexScript" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+
+      
+		
+			
+			
+		
+			
+			
+		</Variables>
+				   
+			
+			<Tasks>
+				
+				<Container Name="Pakkens innhold" ForcedExecutionValueDataType="Empty" ConstraintMode="Parallel">
+          
+          
+          <Tasks>
+      
+				 <!--Specific task: Create Data flow transformation to load table.-->
+					
+				  
+				 
+				 
+			   <ExecuteSQL Name="Fill Create Index Scripts Variable" ConnectionName="DBConnection.PartitionConfigServer" ResultSet="Full">
+						
+					  <Results>
+						<Result Name="0" VariableName="User.CreateIndexScripts" />
+					  </Results>
+					  <DirectInput>
+						  
+						    DECLARE @SubSystem NVARCHAR(200)='<#=subSystem#>'
+							SELECT [CreateIndexScript]
+  							FROM [vulkan].[NonClustedIndexProcessConfiguration]
+							WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])
+							AND SubSystemName = @SubSystem
+							
+						 </DirectInput>
+					  </ExecuteSQL>
+			  
+			  
+			    <ForEachAdoLoop Name="Create Each NonClustered Index on Partitioned Tables On <#=srcDbName#>" SourceVariableName="User.CreateIndexScripts" ConstraintMode="Parallel">
+				       <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Fill Create Index Scripts Variable.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+						
+						<Variables>
+                        
+                    </Variables>
+                    <VariableMappings>
+                            <VariableMapping Name="0" VariableName="User.CurrentCreateIndexScript" />
+                           
+                    </VariableMappings>
+                     
+                    <!-- execute some tasks using the variables passed from the dataset -->
+                    <Tasks>
+						
+		
+						
+						 <ExecuteSQL Name="Create Non-Clustered Index on <#=destSrvr#>.<#=destDbName#>" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+         
+          <DirectInput>
+			  
+			           DECLARE @execSQL NVARCHAR(max) = ?
+				        EXEC sys.sp_executesql @execSQL
+		  </DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.CurrentCreateIndexScript" Length="-1" DataType="String" />
+            
+          </Parameters>
+        </ExecuteSQL>
+					
+						
+				
+			   </Tasks>
+                         
+                </ForEachAdoLoop>
+				 
+			    
+	
+			  
+			     <!--End of Specific task-->
+            
+           </Tasks>
+      
+      
+        </Container>
+	 
+			  
+			        </Tasks>
+      
+      
+       
+			
+		</Package>
+			
+			
+		<#}#>
+		
+		
+		
+	</Packages>
+	
+	  
+	
+	
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>

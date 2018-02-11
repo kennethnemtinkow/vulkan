@@ -1,0 +1,994 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/11/2018 11:13:12 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="sql2016dev1"
+  DTS:CreatorName="sql_dev_1_admin"
+  DTS:DTSID="{99528384-C3D2-49F5-8084-E4DEC4A1FC6B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Switch_VulkanDemoPartition_VulkanProd"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{90C870D9-E7E3-47E5-B702-7F46A8FD2F6A}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.0.0.5.VulkanProd]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+      DTS:ObjectName="10.0.0.5.VulkanProd">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=10.0.0.5;initial catalog=VulkanProd;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FBEBB93A-1FD1-4453-BD6A-61E3834C763D}"
+      DTS:ObjectName="DBConnection.PartitionConfigServer">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Provider=SQLOLEDB.1;Persist Security Info=False;Integrated Security=SSPI;Application Name=SSIS-Switch_VulkanDemoPartition_VulkanProd-{FBEBB93A-1FD1-4453-BD6A-61E3834C763D}DBConnection.PartitionConfigServer;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CCFEE7B8-C417-44E8-A8F4-149FBD863E0F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CreateIndex">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9A656288-6F65-48FF-AFF9-EAA2D64B1BC5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CreateTable">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{508260F2-A98F-46A1-BC5B-DEBB21F11A1D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentDropIndexScript">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DD129AAC-6854-4649-81FF-62A1AD4155D7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFileGroup">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7AE0AB75-C869-4627-A859-1F8A62AD936F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DropIndexScripts">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4CF41347-4A1B-48B0-AA7E-8C063505E1B1}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PartionNumber">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{50F9BA22-4025-46ED-AB01-59E0C5D8CAE2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReturnValue">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6C860768-1A4B-4B48-82FF-98545C263EF6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Schema">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{844C2E9B-032B-4CAD-A268-336E1F04FEE8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Table">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F7C7D669-C8DD-4481-B746-383A54C8D1A1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Tables">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Pakkens innhold"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:DTSID="{DAF0BF26-ACF0-49F4-84F6-3992AC4BFD37}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Pakkens innhold">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Create Proc for CREATE INDEX"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DTSID="{92C24D3C-5B00-40BF-96E0-1F19837AF775}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Proc for CREATE INDEX"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+              SQLTask:SqlStatementSource="if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')&#xA;                                    drop proc Script_CreateIndexXZY&#xA;                         go&#xA;    &#xA;    CREATE proc Script_CreateIndexXZY (&#xA;        @TableName varchar(124), @Postfix NVARCHAR(200), @FileGroup NVARCHAR(200), @execSQL NVARCHAR(MAX) OUTPUT, @SchemaName NVARCHAR(200))&#xA;      AS&#xA;      DECLARE @TableNameFull NVARCHAR(200) = @SchemaName + '.' + @TableName&#xA;      begin&#xA;&#xA;&#xA; --DECLARE @TableName varchar(124) = ''&#xA; --DECLARE @Postfix NVARCHAR(200) = ''&#xA; --DECLARE @FileGroup NVARCHAR(200) = ''&#xA; --DECLARE @SchemaName NVARCHAR(200) = ''&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;        if not exists (select 1 from sys.indexes where type_desc in ('CLUSTERED') AND object_id = &#xA;&#xA; (SELECT TOP 1 object_id FROM  sys.tables WHERE schema_id = SCHEMA_ID(@SchemaName) AND name = @TableName)  )&#xA;            return&#xA;    &#xA;        declare @IndexList table (&#xA;            Id int identity,&#xA;            IndexName varchar(124),&#xA;            IndexDescription varchar(max),&#xA;            IndexKeys varchar(max)&#xA;        )&#xA;    &#xA;        insert @IndexList(IndexName, IndexDescription, IndexKeys)&#xA;            exec sp_helpindex @TableNameFull&#xA;    &#xA;        if (select count(*) from @IndexList) &gt; 0&#xA;        begin&#xA;         &#xA;&#xA;         while exists (select 1 from @IndexList) &#xA;         begin&#xA;             declare @Id int, @IndexName varchar(124), @IndexDescription varchar(max), @IndexKeys varchar(max)&#xA;             select top 1 @Id = Id, @IndexName = IndexName, @IndexDescription = IndexDescription, @IndexKeys = IndexKeys from @IndexList order by Id&#xA;             delete from @IndexList where Id = @Id&#xA;&#xA;             declare @Clustered varchar(10), @Unique varchar(7)&#xA;&#xA;             select @Clustered = case when patindex('%nonclustered%', @IndexDescription) &gt; 0 then '' else ' clustered ' end&#xA;             select @Unique = case when patindex('%unique%', @IndexDescription) &gt; 0 then ' unique ' else '' end&#xA;&#xA;     &#xA;   select @execSQL = CHAR(9) + 'create' + @Unique + @Clustered + ' index [' + @IndexName + '] on [' + @SchemaName  + '].[' + @TableName + '' + @Postfix + '](' + @IndexKeys + ') ON ' + @FileGroup&#xA;     &#xA;         end&#xA;&#xA;  &#xA;        end&#xA;       end&#xA;       go&#xA;&#xA;&#xA;&#xA;        " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Drop Create Index Procedure"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DTSID="{4A2FC9AC-E7A0-468D-A963-C20D223A74CA}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Drop Create Index Procedure"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+              SQLTask:SqlStatementSource=" if exists (select 1 from information_schema.routines where routine_name = 'Script_CreateIndexXZY')&#xA;                                    drop proc Script_CreateIndexXZY&#xA;                         go&#xA;    &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:DTSID="{FAA4222D-2412-4836-AF3F-946DEC9539A2}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Drop Each NonClustered Index on Partitioned Tables On VulkanProd">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{F0FA8BA5-AD5D-4921-8F4D-467F67E21ED7}"
+            DTS:ObjectName="{F0FA8BA5-AD5D-4921-8F4D-467F67E21ED7}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateRowsInFirstTable"
+                VarName="User::DropIndexScripts" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd\Drop Non-Clustered Index"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{98FE9263-DC5F-4080-A12E-CFD8EDBAA6A2}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Drop Non-Clustered Index"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="&#xA;     &#xA;               DECLARE @execSQL NVARCHAR(max) = ?&#xA;            EXEC sys.sp_executesql @execSQL&#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::CurrentDropIndexScript"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{1F81B056-7EE6-4D8D-BB1F-B5E14BD5E1AF}"
+              DTS:ObjectName="{1F81B056-7EE6-4D8D-BB1F-B5E14BD5E1AF}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::CurrentDropIndexScript" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Fill Drop Index Scripts Variable"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DTSID="{48555036-54B6-4D4D-BF57-08303EAB8BB2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Fill Drop Index Scripts Variable"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{FBEBB93A-1FD1-4453-BD6A-61E3834C763D}"
+              SQLTask:SqlStatementSource="&#xA;        &#xA;          DECLARE @SubSystem NVARCHAR(200)='VulkanDemoPartition'&#xA;       SELECT [DropIndexScript]&#xA;         FROM [vulkan].[NonClustedIndexProcessConfiguration]&#xA;       WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])&#xA;       AND SubSystemName = @SubSystem&#xA;       &#xA;       "
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::DropIndexScripts" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Fill Object Variable"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DTSID="{52CEE16A-1E36-4FDA-8375-1868D857DF9A}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Fill Object Variable"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{FBEBB93A-1FD1-4453-BD6A-61E3834C763D}"
+              SQLTask:SqlStatementSource="SELECT &#xA;         [Schema]&#xA;         ,[Table]&#xA;         ,[CurrentFileGroup]&#xA;    &#xA;  FROM [vulkan].[SwitchConfiguration]&#xA;&#xA;  WHERE SubSystemName = 'VulkanDemoPartition'  &#xA;   &#xA;   AND Active = 'y' "
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::Tables" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\For Each Partioned Table"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:DTSID="{D7225227-41ED-4D0C-85C6-97D9B4398DEE}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="For Each Partioned Table">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{A6ABEF1B-5B10-4DB7-A548-526A99198F28}"
+            DTS:ObjectName="{A6ABEF1B-5B10-4DB7-A548-526A99198F28}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateRowsInFirstTable"
+                VarName="User::Tables" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Create Index"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{01492219-CB46-4DBC-AF56-7642A0B89171}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Create Index"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource=" EXEC sp_executesql ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::CreateIndex"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Create Shadow Table"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{1961B0BC-DEAF-4016-9C44-8D86A906569A}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Create Shadow Table"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="&#xA;DECLARE @table NVARCHAR(200) = ?&#xA;DECLARE @sql NVARCHAR(max)&#xA;DECLARE @schema NVARCHAR(200) = ?&#xA;&#xA;SET @sql =&#xA;&#xA;'&#xA;&#xA;SELECT *&#xA; INTO '+ @schema + '.' + @table + '_shadow&#xA;  FROM  '+ @schema + '.' + @table + '&#xA;&#xA;  WHERE 0 = 1&#xA;&#xA;  '&#xA;&#xA;&#xA;  EXEC sys.sp_executesql @sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="1"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Fix table compression"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{0ED6457B-269D-45EE-971E-3053EE3DB46A}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Fix table compression"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="  &#xA;DECLARE @schema NVARCHAR(200) = ?   &#xA;DECLARE @table NVARCHAR(200) = ?&#xA;&#xA;DECLARE @part NVARCHAR(200)= ?&#xA;DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table&#xA;DECLARE @shadow NVARCHAR(200)= @schema + '.' + @table + '_shadow'&#xA;DECLARE @compression NVARCHAR(200)&#xA;DECLARE @sql NVARCHAR(max)&#xA;&#xA;&#xA;;WITH GetCompression AS (&#xA;&#xA;SELECT  SCHEMA_NAME(so.schema_id) AS schema_name ,&#xA;        OBJECT_NAME(p.object_id) AS object_name ,&#xA;        p.partition_number ,&#xA;        p.data_compression_desc ,&#xA;        dbps.row_count ,&#xA;        dbps.reserved_page_count * 8 / 1024. AS reserved_mb ,&#xA;        si.index_id ,&#xA;        CASE WHEN si.index_id = 0 THEN '(heap!)'&#xA;                ELSE si.name&#xA;        END AS index_name ,&#xA;        si.is_unique ,&#xA;        si.data_space_id ,&#xA;        mappedto.name AS mapped_to_name ,&#xA;        mappedto.type_desc AS mapped_to_type_desc ,&#xA;        partitionds.name AS partition_filegroup ,&#xA;        pf.name AS pf_name ,&#xA;        pf.type_desc AS pf_type_desc ,&#xA;        pf.fanout AS pf_fanout ,&#xA;        pf.boundary_value_on_right ,&#xA;        ps.name AS partition_scheme_name ,&#xA;        rv.value AS range_value&#xA;FROM    sys.partitions p&#xA;JOIN    sys.objects so&#xA;        ON p.object_id = so.object_id&#xA;            AND so.is_ms_shipped = 0&#xA;LEFT JOIN sys.dm_db_partition_stats AS dbps&#xA;        ON p.object_id = dbps.object_id&#xA;            AND p.partition_id = dbps.partition_id&#xA;JOIN    sys.indexes si&#xA;        ON p.object_id = si.object_id&#xA;            AND p.index_id = si.index_id&#xA;LEFT JOIN sys.data_spaces mappedto&#xA;        ON si.data_space_id = mappedto.data_space_id&#xA;LEFT JOIN sys.destination_data_spaces dds&#xA;        ON si.data_space_id = dds.partition_scheme_id&#xA;            AND p.partition_number = dds.destination_id&#xA;LEFT JOIN sys.data_spaces partitionds&#xA;        ON dds.data_space_id = partitionds.data_space_id&#xA;LEFT JOIN sys.partition_schemes AS ps&#xA;        ON dds.partition_scheme_id = ps.data_space_id&#xA;LEFT JOIN sys.partition_functions AS pf&#xA;        ON ps.function_id = pf.function_id&#xA;LEFT JOIN sys.partition_range_values AS rv&#xA;        ON pf.function_id = rv.function_id&#xA;            AND dds.destination_id = CASE pf.boundary_value_on_right&#xA;                                        WHEN 0 THEN rv.boundary_id&#xA;                                        ELSE rv.boundary_id + 1&#xA;          END&#xA;    &#xA;)&#xA;&#xA;SELECT @compression = GetCompression.data_compression_desc&#xA;FROM GetCompression&#xA;WHERE &#xA;&#xA;GetCompression.object_name = @table AND &#xA;GetCompression.schema_name = @schema AND&#xA;GetCompression.partition_number = @part&#xA;&#xA;IF @compression &lt;&gt; 'NONE' &#xA;BEGIN&#xA;&#xA;SET @sql =&#xA;&#xA;'ALTER TABLE '+ @shadow +' REBUILD PARTITION = ALL&#xA;WITH &#xA;(DATA_COMPRESSION = '+ @compression +'&#xA;)'&#xA;    &#xA;END&#xA;&#xA;EXEC sys.sp_executesql @sql  &#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="1"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="2"
+                    SQLTask:DtsVariableName="User::PartionNumber"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{AC639375-2C3E-44E7-BCB3-E27116A8921A}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Generate Create Script for Index"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="EXECUTE ? = [dbo].[Script_CreateIndexXZY]  &#xA;  ?&#xA;  ,'_shadow'&#xA;  ,?&#xA;  ,? OUTPUT&#xA;   ,?    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::ReturnValue"
+                    SQLTask:ParameterDirection="ReturnValue"
+                    SQLTask:DataType="3"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="1"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="3"
+                    SQLTask:DtsVariableName="User::CreateIndex"
+                    SQLTask:ParameterDirection="Output"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="2"
+                    SQLTask:DtsVariableName="User::CurrentFileGroup"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="4"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{36E7B4C3-DAD7-4A3D-BF41-868D4CC793DB}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Get Partition Number"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="SELECT DISTINCT&#xA;        p.partition_number AS partition_number ,&#xA;        ds.name AS partition_filegroup &#xA;&#xA;FROM    sys.destination_data_spaces AS dds&#xA;        JOIN sys.data_spaces AS ds ON dds.data_space_id = ds.data_space_id&#xA;        JOIN sys.partition_schemes AS ps ON dds.partition_scheme_id = ps.data_space_id&#xA;        JOIN sys.partition_functions AS pf ON ps.function_id = pf.function_id&#xA;        LEFT JOIN sys.partition_range_values AS rv ON pf.function_id = rv.function_id&#xA;                                                        AND dds.destination_id = CASE pf.boundary_value_on_right&#xA;                                                                                    WHEN 0 THEN rv.boundary_id&#xA;                                                                                    ELSE rv.boundary_id + 1&#xA;                                                                                END&#xA;        LEFT JOIN sys.indexes AS si ON dds.partition_scheme_id = si.data_space_id&#xA;        LEFT JOIN sys.partitions AS p ON si.object_id = p.object_id&#xA;                                            AND si.index_id = p.index_id&#xA;                                            AND dds.destination_id = p.partition_number&#xA;        LEFT JOIN sys.dm_db_partition_stats AS dbps ON p.object_id = dbps.object_id&#xA;                                                        AND p.partition_id = dbps.partition_id&#xA;&#xA;WHERE ds.name = ?"
+                  SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ResultBinding
+                    SQLTask:ResultName="partition_number"
+                    SQLTask:DtsVariableName="User::PartionNumber" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::CurrentFileGroup"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\Rename Tables"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{EC1ED515-1C5C-470D-809A-5CAB86FEC123}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Rename Tables"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource=" &#xA; &#xA;  &#xA;    DECLARE @schema NVARCHAR(200) = ?&#xA;   DECLARE @table NVARCHAR(200) = ?&#xA;   DECLARE @newtablename NVARCHAR(200) = 'partition_' + @table&#xA;&#xA;   DECLARE @schemaoldtablename NVARCHAR(200) = @schema + '.' + @table&#xA;   DECLARE @schemanewtablename NVARCHAR(200) = 'partition_' + @table&#xA;&#xA;  EXEC sp_rename @schemaoldtablename, @schemanewtablename&#xA;&#xA;&#xA;     DECLARE @schema2 NVARCHAR(200) = ?&#xA;   DECLARE @table2 NVARCHAR(200) = ?&#xA;   DECLARE @newtablename2 NVARCHAR(200) = @table&#xA;&#xA;   DECLARE @schemaoldtablename2 NVARCHAR(200) = @schema2 + '.' + @table2 +  '_shadow'&#xA;   DECLARE @schemanewtablename2 NVARCHAR(200) = @table&#xA;&#xA;  EXEC sp_rename @schemaoldtablename2, @schemanewtablename2&#xA;&#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="1"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="2"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="3"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{1C0A2694-2B46-4DAF-AE22-CFB6BFC3D6CE}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="SWITCH PARTITION"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{944B5029-C8C3-4905-B38E-5E6364207CF9}"
+                  SQLTask:SqlStatementSource="&#xA;DECLARE @schema NVARCHAR(200) = ?   &#xA;DECLARE @table NVARCHAR(200) = ?&#xA;&#xA;DECLARE @part NVARCHAR(200)= ?&#xA;DECLARE @schematable NVARCHAR(200) = @schema + '.' + @table&#xA;DECLARE @switch NVARCHAR(200)= @schema + '.' + @table + '_shadow'&#xA;DECLARE @sql NVARCHAR(max)&#xA;&#xA;&#xA;SET @sql =&#xA;'&#xA;ALTER TABLE '+ @schematable +'&#xA;SWITCH PARTITION ' + @part + ' TO ' + @switch&#xA;&#xA;&#xA;&#xA;EXEC sys.sp_executesql @sql&#xA;    &#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::Schema"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="1"
+                    SQLTask:DtsVariableName="User::Table"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="2"
+                    SQLTask:DtsVariableName="User::PartionNumber"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Index_To_Get Partition Number]"
+              DTS:CreationName=""
+              DTS:DTSID="{F03759B9-9BE2-44E0-B500-B388434DBCD3}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\Create Index"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_Create Index_To_Get Partition Number"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Shadow Table_To_Generate Create Script for Index]"
+              DTS:CreationName=""
+              DTS:DTSID="{2F594AE3-D811-4145-9E89-95501D0CD01D}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\Create Shadow Table"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_Create Shadow Table_To_Generate Create Script for Index"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Fix table compression_To_SWITCH PARTITION]"
+              DTS:CreationName=""
+              DTS:DTSID="{68094D3A-6953-481A-9199-09E43A4A676A}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\Fix table compression"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_Fix table compression_To_SWITCH PARTITION"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Generate Create Script for Index_To_Create Index]"
+              DTS:CreationName=""
+              DTS:DTSID="{73B0BC14-97AC-4CA8-A312-28C7DBEBD61B}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_Generate Create Script for Index_To_Create Index"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\Create Index" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Get Partition Number_To_Fix table compression]"
+              DTS:CreationName=""
+              DTS:DTSID="{F3BB445C-6201-4CBC-91CD-BF684B14C56F}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_Get Partition Number_To_Fix table compression"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\Fix table compression" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_SWITCH PARTITION_To_Rename Tables]"
+              DTS:CreationName=""
+              DTS:DTSID="{8A2B2BD6-202C-49A1-9D0E-28C577B2E2DF}"
+              DTS:From="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint_SWITCH PARTITION_To_Rename Tables"
+              DTS:To="Package\Pakkens innhold\For Each Partioned Table\Rename Tables" />
+          </DTS:PrecedenceConstraints>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{656BA9BF-55D7-4392-BFB1-524060D082B1}"
+              DTS:ObjectName="{656BA9BF-55D7-4392-BFB1-524060D082B1}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::Schema" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{C04F6AFC-FE92-45FC-B3A2-8FE2F6D90228}"
+              DTS:ObjectName="{C04F6AFC-FE92-45FC-B3A2-8FE2F6D90228}"
+              DTS:ValueIndex="1"
+              DTS:VariableName="User::Table" />
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{E7696A92-081B-4ACF-BEAA-88C3068C47AB}"
+              DTS:ObjectName="{E7696A92-081B-4ACF-BEAA-88C3068C47AB}"
+              DTS:ValueIndex="2"
+              DTS:VariableName="User::CurrentFileGroup" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Create Proc for CREATE INDEX_To_Fill Object Variable]"
+          DTS:CreationName=""
+          DTS:DTSID="{83495947-B1C5-461E-BDA8-3CAA6FC9AE24}"
+          DTS:From="Package\Pakkens innhold\Create Proc for CREATE INDEX"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Create Proc for CREATE INDEX_To_Fill Object Variable"
+          DTS:To="Package\Pakkens innhold\Fill Object Variable" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Create Proc for CREATE INDEX]"
+          DTS:CreationName=""
+          DTS:DTSID="{A3DB2920-07DA-438B-8810-00A64E2569F4}"
+          DTS:From="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Create Proc for CREATE INDEX"
+          DTS:To="Package\Pakkens innhold\Create Proc for CREATE INDEX" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd]"
+          DTS:CreationName=""
+          DTS:DTSID="{00B17765-09AE-4295-AE4D-F94BC7E39256}"
+          DTS:From="Package\Pakkens innhold\Fill Drop Index Scripts Variable"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd"
+          DTS:To="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Object Variable_To_For Each Partioned Table]"
+          DTS:CreationName=""
+          DTS:DTSID="{EAB2E3A8-CFFE-44EA-9746-28DD66209145}"
+          DTS:From="Package\Pakkens innhold\Fill Object Variable"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Fill Object Variable_To_For Each Partioned Table"
+          DTS:To="Package\Pakkens innhold\For Each Partioned Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_For Each Partioned Table_To_Drop Create Index Procedure]"
+          DTS:CreationName=""
+          DTS:DTSID="{CE151B08-AFE4-469E-8C21-D09DCA6FB488}"
+          DTS:From="Package\Pakkens innhold\For Each Partioned Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_For Each Partioned Table_To_Drop Create Index Procedure"
+          DTS:To="Package\Pakkens innhold\Drop Create Index Procedure" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Pakkens innhold\Create Proc for CREATE INDEX"
+          TopLeft="15.1000000000001,312.3" />
+        <NodeLayout
+          Size="216,41.6"
+          Id="Package\Pakkens innhold\Drop Create Index Procedure"
+          TopLeft="19.1000000000002,1330.3" />
+        <NodeLayout
+          Size="201.6,41.6"
+          Id="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd\Drop Non-Clustered Index"
+          TopLeft="5.5,5.49999999999995" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="212.8,102"
+          Size="212.8,145.2"
+          Id="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd"
+          TopLeft="20.7,107.1" />
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Pakkens innhold\Fill Drop Index Scripts Variable"
+          TopLeft="15.5,5.49999999999995" />
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\Pakkens innhold\Fill Object Variable"
+          TopLeft="43.9000000000001,413.9" />
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Create Index"
+          TopLeft="51.9,208.7" />
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Create Shadow Table"
+          TopLeft="32.3,5.49999999999995" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Fix table compression"
+          TopLeft="31.5000000000001,411.9" />
+        <NodeLayout
+          Size="232,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Generate Create Script for Index"
+          TopLeft="5.50000000000001,107.1" />
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Get Partition Number"
+          TopLeft="32.3,310.3" />
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\Rename Tables"
+          TopLeft="45.9000000000001,615.099999999999" />
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\Pakkens innhold\For Each Partioned Table\SWITCH PARTITION"
+          TopLeft="33.9000000000001,513.5" />
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Shadow Table_To_Generate Create Script for Index]"
+          TopLeft="121.5,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Generate Create Script for Index_To_Create Index]"
+          TopLeft="121.5,148.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Create Index_To_Get Partition Number]"
+          TopLeft="121.5,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Get Partition Number_To_Fix table compression]"
+          TopLeft="121.5,351.9">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_Fix table compression_To_SWITCH PARTITION]"
+          TopLeft="121.5,453.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold\For Each Partioned Table.PrecedenceConstraints[Constraint_SWITCH PARTITION_To_Rename Tables]"
+          TopLeft="121.5,555.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="243.2,711.6"
+          Size="243.2,754.8"
+          Id="Package\Pakkens innhold\For Each Partioned Table"
+          TopLeft="5.50000000000016,515.5" />
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd]"
+          TopLeft="127.1,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Create Proc for CREATE INDEX]"
+          TopLeft="127.1,252.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Create Proc for CREATE INDEX_To_Fill Object Variable]"
+          TopLeft="127.1,353.9">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Object Variable_To_For Each Partioned Table]"
+          TopLeft="127.1,455.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_For Each Partioned Table_To_Drop Create Index Procedure]"
+          TopLeft="127.1,1270.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="254.4,1426.8"
+          Size="254.4,1470"
+          Id="Package\Pakkens innhold"
+          TopLeft="5.50000000000021,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

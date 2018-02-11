@@ -1,0 +1,273 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	
+<!--Get Connections-->
+
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+
+
+<# 
+    String ConfigConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"; 
+	DataTable restoreList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName],[DestinationServer],[DestinationDatabase],[SourceDataBase], [RecoverModeDestinationServer],CASE WHEN FullOrPartialBackup = 'Partial' THEN 'PARTIAL,' ELSE '' END AS PartialBackupRestore,[FilePathBakFileSourceServer],[FilePathBakFileDestinationServer],[FilePathBakFileDestinationServerRemoteAccess] FROM [vulkan].[BaseConfiguration]");
+	DataTable databaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer, DestinationDatabase FROM [vulkan].[MergeConfiguration]");
+	DataTable serverList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer FROM [vulkan].[MergeConfiguration]");
+	DataTable mergeList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName] ,[DestinationServer],[DestinationDatabase] FROM [vulkan].[MergeConfiguration] WHERE Active = 'y'");
+	
+	#>
+	
+	
+	
+ <Connections>
+	 <# foreach(DataRow db in databaseList.Rows) { 
+			String srvr = db["DestinationServer"].ToString();
+		    String dbName = db["DestinationDatabase"].ToString();
+	 #>
+	
+    <Connection Name="<#=srvr#>.<#=dbName#>" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=<#=dbName#>;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+     <#}#>
+		 
+		 
+	<# foreach(DataRow srv in serverList.Rows) {
+			String srvr = srv["DestinationServer"].ToString();
+	#>
+	<Connection Name="<#=srvr#>.master" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=master;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+	<#}#>	 
+		
+ 	<OleDbConnection Name="DBConnection.PartitionConfigServer" ConnectionString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1"></OleDbConnection>
+  	
+	 
+   </Connections>	
+	
+	
+	
+	<Packages>
+	
+	  <!-- ConnString:  Add the connection to your config server/database here  -->
+		
+		<# foreach(DataRow mrg in mergeList.Rows) 
+		{
+					
+			String subSystem = mrg["SubSystemName"].ToString();
+			
+			String destSrvr = mrg["DestinationServer"].ToString();
+			
+			String destDbName = mrg["DestinationDataBase"].ToString();
+	
+		    String ConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;User Id=vulkanbiml;Password=TitanStopSign2%;Persist Security Info=False"; 
+			
+	
+			
+	
+			
+
+			
+			
+		#>
+		<Package Name="Merge_<#=subSystem#>_<#=destDbName#>">
+		
+	 
+			
+	    <Variables>		
+			
+		 
+			
+			<Variable Name="PartitionFunction" DataType="String"></Variable>
+			<Variable Name="Range" DataType="String"></Variable>
+			<Variable Name="PartitionFunctionRangeForLoop" DataType="Object"></Variable>
+			
+		    <Variable Name="DropIndexScripts" DataType="Object" IncludeInDebugDump="Include">0</Variable>
+			<Variable Name="CurrentDropIndexScript" DataType="String" IncludeInDebugDump="Exclude"></Variable>
+		
+			
+			
+		
+			
+			
+		</Variables>
+				   
+			
+			<Tasks>
+				
+				<Container Name="Pakkens innhold" ForcedExecutionValueDataType="Empty" ConstraintMode="Parallel">
+        
+          
+          <Tasks>
+      
+				 <!--Specific task: Create Data flow transformation to load table.-->
+			  
+			  
+			  
+			  
+			    <ExecuteSQL Name="Fill Drop Index Scripts Variable" ConnectionName="DBConnection.PartitionConfigServer" ResultSet="Full">
+						
+					  <Results>
+						<Result Name="0" VariableName="User.DropIndexScripts" />
+					  </Results>
+					  <DirectInput>
+						  
+						    DECLARE @SubSystem NVARCHAR(200)='<#=subSystem#>'
+							SELECT [DropIndexScript]
+  							FROM [vulkan].[NonClustedIndexProcessConfiguration]
+							WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])
+							AND SubSystemName = @SubSystem
+							
+						 </DirectInput>
+					  </ExecuteSQL>
+			  
+			  
+			    <ForEachAdoLoop Name="Drop Each NonClustered Index on Partitioned Tables On <#=destDbName#>" SourceVariableName="User.DropIndexScripts" ConstraintMode="Parallel">
+				       <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Fill Drop Index Scripts Variable.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+						
+						<Variables>
+                        
+                    </Variables>
+                    <VariableMappings>
+                            <VariableMapping Name="0" VariableName="User.CurrentDropIndexScript" />
+                           
+                    </VariableMappings>
+                     
+                    <!-- execute some tasks using the variables passed from the dataset -->
+                    <Tasks>
+						
+		 <ExecuteSQL Name="Drop Non-Clustered Index" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+         
+          <DirectInput>
+			  
+			            DECLARE @execSQL NVARCHAR(max) = ?
+				        EXEC sys.sp_executesql @execSQL
+		  </DirectInput>
+          <Parameters>
+            <Parameter Name="0" VariableName="User.CurrentDropIndexScript" Length="-1" DataType="String" />
+            
+          </Parameters>
+        </ExecuteSQL>
+						
+						  </Tasks>
+                         
+                </ForEachAdoLoop>
+			  
+			  
+			  
+			  
+    <ExecuteSQL Name="Fill PartitionFunctionRangeForLoop Variable" ResultSet="Full" ConnectionName="DBConnection.PartitionConfigServer" >
+				 
+				  <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Drop Each NonClustered Index on Partitioned Tables On <#=destDbName#>.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+				 
+				 
+				 <DirectInput> 
+					 
+						   ;WITH BASE AS 
+
+						   ( 
+      
+							  SELECT  
+      
+							  [PartitionFunction] ,[Range], CAST([Order] AS INT) AS [ORDER]
+      
+							  FROM [vulkan].[MergeConfiguration]
+
+								 WHERE Active = 'y' AND [DestinationDatabase] = '<#=destDbName#>'
+      
+							  AND SubSystemName = '<#=subSystem#>'
+
+						)
+
+	    SELECT [PartitionFunction] ,[Range]  FROM BASE
+          ORDER BY [ORDER], PartitionFunction
+				 
+				 </DirectInput>
+				 <Results>
+                                <Result Name="0" VariableName="User.PartitionFunctionRangeForLoop" />
+                            </Results>
+
+			 </ExecuteSQL>			
+				
+			        <ForEachAdoLoop Name="Merge each Function and Range for database <#=destDbName#>" SourceVariableName="User.PartitionFunctionRangeForLoop" ConstraintMode="Parallel">
+				       <PrecedenceConstraints>
+				       <Inputs>
+				         <Input OutputPathName="Fill PartitionFunctionRangeForLoop Variable.Output"/>
+				       </Inputs>
+				     </PrecedenceConstraints>
+						
+						<Variables>
+                        
+                    </Variables>
+                    <VariableMappings>
+                            <VariableMapping Name="0" VariableName="User.PartitionFunction" />
+                            <VariableMapping Name="1" VariableName="User.Range" />
+                    </VariableMappings>
+                     
+                    <!-- execute some tasks using the variables passed from the dataset -->
+                    <Tasks>
+ 
+                        <ExecuteSQL Name="Merge Ranges" ConnectionName="<#=destSrvr#>.<#=destDbName#>">
+                            <DirectInput>
+								
+								DECLARE @Func NVARCHAR(100)=?
+								DECLARE @Rang	NVARCHAR(100)=?
+								DECLARE @sql NVARCHAR(max)
+
+								SET @sql =
+
+								'ALTER PARTITION FUNCTION [' + @Func  + ']() 
+								  MERGE RANGE (' + @Rang +'); 
+
+								'
+
+								EXEC sp_executesql @sql
+								
+							</DirectInput>
+                            <Parameters>
+                                <Parameter Name="0" DataType="String" Length="50" Direction="Input" VariableName="User.PartitionFunction" />
+								 <Parameter Name="1" DataType="String" Length="50" Direction="Input" VariableName="User.Range" />
+                            </Parameters>
+                        </ExecuteSQL>
+ 
+                     
+                         
+                        </Tasks>
+                         
+                </ForEachAdoLoop>
+			 
+				
+		
+					 
+						
+				
+	
+			  
+			     <!--End of Specific task-->
+            
+           </Tasks>
+      
+      
+        </Container>
+        
+	 
+			        </Tasks>
+      
+      
+      
+			
+		</Package>
+			
+			
+		<#}#>
+		
+		
+		
+	</Packages>
+	
+	 
+	
+	
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
