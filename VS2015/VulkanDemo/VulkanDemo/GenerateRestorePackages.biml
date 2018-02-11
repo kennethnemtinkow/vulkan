@@ -1,0 +1,350 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+	
+<!--Get Connections-->
+
+  <!-- ConfigConnString:  Add the connection to your config server/database here  -->
+
+
+<# 
+    String ConfigConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1;"; 
+	DataTable restoreList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT [SubSystemName],[DestinationServer],[DestinationDatabase],[SourceDataBase], [RecoverModeDestinationServer],CASE WHEN FullOrPartialBackup = 'Partial' THEN 'PARTIAL,' ELSE '' END AS PartialBackupRestore,[FilePathBakFileSourceServer],[FilePathBakFileDestinationServer],[FilePathBakFileDestinationServerRemoteAccess] ,[DeleteBackupFileOnSourceServer] ,[DeleteBackupFileOnDestinationServer],[CopyBackupFileToDestinationServer] FROM [vulkan].[BaseConfiguration] WHERE Active = 'y'");
+	DataTable databaseList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer, DestinationDatabase FROM [vulkan].[BaseConfiguration] WHERE Active = 'y'");
+	DataTable serverList = ExternalDataAccess.GetDataTable(ConfigConnString, "SELECT DISTINCT DestinationServer FROM [vulkan].[BaseConfiguration] WHERE Active = 'y'");
+	#>
+	
+	
+	
+ <Connections>
+	 <# foreach(DataRow db in databaseList.Rows) { 
+			String srvr = db["DestinationServer"].ToString();
+		    String dbName = db["DestinationDatabase"].ToString();
+	 #>
+	
+    <Connection Name="<#=srvr#>.<#=dbName#>" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=<#=dbName#>;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+     <#}#>
+		 
+		 
+	<# foreach(DataRow srv in serverList.Rows) {
+			String srvr = srv["DestinationServer"].ToString();
+	#>
+	<Connection Name="<#=srvr#>.master" ConnectionString="Data Source=<#=srvr#>;Initial Catalog=master;Integrated Security=SSPI;Persist Security Info=False;Provider=SQLOLEDB.1" />
+	<#}#>	 
+		
+	 
+   </Connections>	
+	
+	
+	
+	<Packages>
+	
+	  <!-- ConnString:  Add the connection to your config server/database here  -->
+		
+		<# foreach(DataRow rst in restoreList.Rows) 
+		{
+					
+			String subSystem = rst["SubSystemName"].ToString();
+			
+			String destSrvr = rst["DestinationServer"].ToString();
+			
+			String destDbName = rst["DestinationDataBase"].ToString();
+			
+			String sourceDbName = rst["SourceDataBase"].ToString();
+			
+			String destPath = rst["FilePathBakFileDestinationServer"].ToString();
+			
+			String destRemotePath = rst["FilePathBakFileDestinationServerRemoteAccess"].ToString();
+			
+			String srcPath = rst["FilePathBakFileSourceServer"].ToString();
+			
+		    String recModeDest = rst["RecoverModeDestinationServer"].ToString();
+			
+			String PartialOrFull = rst["PartialBackupRestore"].ToString();
+			
+			
+			String sourceFilePathFull = srcPath + sourceDbName + ".bak";
+			
+			String destFilePathFull = destPath + destDbName + ".bak";
+			
+			String destFileRemotePathFull = destRemotePath + destDbName + ".bak";
+			
+			String srcDeleteBakFile = rst["DeleteBackupFileOnSourceServer"].ToString();
+			
+			String destDeleteBakFile = rst["DeleteBackupFileOnDestinationServer"].ToString();
+			
+			String copyBackupFileToDest = rst["CopyBackupFileToDestinationServer"].ToString();
+			
+			
+			
+			String ConnString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;User Id=vulkanbiml;Password=TitanStopSign2%;Persist Security Info=False"; 
+			
+			String sql = @"SELECT COALESCE(STUFF((
+									SELECT DISTINCT CONCAT(',', CHAR(10), ' FILEGROUP = ''', FileGroupsToBackupRestore, '''')
+									FROM [vulkan].[DatabaseFilesConfiguration]
+									WHERE SubSystemName = @SubSystem
+									AND [Database] = @Database
+									AND Type = 'DataFile'
+									AND Active = 'y'
+									FOR XML PATH('')
+								), 1, 1, ''), '')";
+			
+			String fileGroups = "";  
+			if (PartialOrFull != "") {
+				using (var con = new SqlConnection(ConnString)) {
+					using (var cmd = new SqlCommand(sql, con)) {
+						cmd.Parameters.AddWithValue("@SubSystem", subSystem);
+						cmd.Parameters.AddWithValue("@Database", sourceDbName);
+						con.Open();
+						fileGroups = (String)cmd.ExecuteScalar();
+					}
+				}
+			}
+			
+			String sql2 = @"SELECT COALESCE(STUFF((
+									SELECT CONCAT(',', CHAR(10),' MOVE N''', [LogicalName], ''' TO N''', [FilePathDestination] , '''')
+									FROM [vulkan].[DatabaseFilesConfiguration]
+									WHERE [SubSystemName] = @SubSystem 
+									AND [Database] = @Database
+									AND Active = 'y'
+									FOR XML PATH('')
+														), 1, 1, ''), '')";
+			
+			String dataFiles;  
+			
+			using (var con = new SqlConnection(ConnString)) {
+				using (var cmd = new SqlCommand(sql2, con)) {
+					cmd.Parameters.AddWithValue("@SubSystem", subSystem);
+					cmd.Parameters.AddWithValue("@Database", sourceDbName);
+					con.Open();
+					dataFiles = (String)cmd.ExecuteScalar();
+				}
+			}
+			
+			
+			
+		#>
+		<Package Name="Restore_<#=subSystem#>_<#=destDbName#>">
+		
+	 
+			
+	    <Variables>		
+			
+			<Variable Name="BatchLogID" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+			<Variable Name="EndBatchAudit" DataType="Boolean" IncludeInDebugDump="Include">False</Variable>
+			<Variable Name="PackageLogID" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+            <Variable Name="WebsiteForDebugInfo" DataType="String" IncludeInDebugDump="Exclude">http://www.spv.no/?</Variable>       
+            <Variable Name="LogServerConnectionstring" DataType="String" IncludeInDebugDump="Exclude">Data Source=utvsql195dwh.spvutvikling.no;Initial Catalog=ConfigLog;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</Variable>
+            <Variable Name="FilePathBakFileSourceServer" DataType="String"><#=sourceFilePathFull#></Variable>
+			<Variable Name="FilePathBakFileDestinationServerRemoteAccess" DataType="String"><#=destRemotePath#></Variable>
+			<Variable Name="FilePathBakFileDestinationServer" DataType="String"><#=destFilePathFull#></Variable>
+			<Variable Name="CurrentRecoveryMode" DataType="String"><#=recModeDest#></Variable>
+			
+			<Variable Name="FilePathFullBakFileDestinationServerRemoteAccess" DataType="String"><#=destFileRemotePathFull#></Variable>
+			
+			
+			
+			
+			<Variable Name="DeleteBakFileOnSourceServer" DataType="String"><#=srcDeleteBakFile#></Variable>
+			
+			<Variable Name="DeleteBakFileOnDestinationServer" DataType="String"><#=destDeleteBakFile#></Variable>
+			
+			
+			
+			
+		</Variables>
+				   
+			
+			<Tasks>
+				
+				<Container Name="Pakkens innhold" ForcedExecutionValueDataType="Empty" ConstraintMode="Parallel">
+          
+          
+          <Tasks>
+      
+				 <!--Specific task: Create Data flow transformation to load table.-->
+			  
+			  
+				<# if (copyBackupFileToDest.ToUpper() == "Y") {#>	 
+				<FileSystem Name="Copy Bak File" Operation="CopyFile" OverwriteDestination="true">
+					<VariableInput VariableName="User.FilePathBakFileSourceServer"></VariableInput>
+					<VariableOutput VariableName="User.FilePathBakFileDestinationServerRemoteAccess"></VariableOutput>
+				</FileSystem>
+				<#}#>
+			
+				 
+	
+				<ExecuteSQL ConnectionName="<#=destSrvr#>.master" Name="Kill Connection to <#=destDbName#>">
+				<# if (copyBackupFileToDest.ToUpper() == "Y") {#>	
+				  <PrecedenceConstraints>
+						<Inputs>
+						  <Input OutputPathName="Copy Bak File.Output" />
+						</Inputs>
+					  </PrecedenceConstraints>
+				<#}#>
+				<DirectInput>
+					
+					<![CDATA[		
+					
+					        DECLARE @DatabaseName AS VARCHAR(100)
+
+							SET @DatabaseName = '<#=destDbName#>'
+
+							USE master
+
+							SET NOCOUNT ON
+							DECLARE @DBName varchar(50)
+							DECLARE @spidstr varchar(8000)
+							DECLARE @ConnKilled smallint
+							SET @ConnKilled=0
+							SET @spidstr = ''
+							
+							IF EXISTS (SELECT name FROM master.sys.databases WHERE name = @DatabaseName)
+
+							Set @DBName = @DatabaseName
+							IF db_id(@DBName) < 4
+							BEGIN
+							PRINT 'Connections to system databases cannot be killed'
+							RETURN
+							END
+							SELECT @spidstr=coalesce(@spidstr,'','' )+'kill '+convert(varchar, spid)+ '; '
+							FROM master..sysprocesses WHERE dbid=db_id(@DBName)
+
+							IF LEN(@spidstr) > 0
+							BEGIN
+							EXEC(@spidstr)
+							SELECT @ConnKilled = COUNT(1)
+							FROM master..sysprocesses WHERE dbid=db_id(@DBName)
+							
+							END 
+					]]>
+					
+				</DirectInput>
+			</ExecuteSQL>
+				   
+	
+					 
+			
+							
+							
+						
+							
+					
+				
+				
+			 
+			 
+				
+				<ExecuteSQL Name="Restore <#=destDbName#>" ConnectionName="<#=destSrvr#>.master" >
+				
+				  <PrecedenceConstraints>
+						<Inputs>
+						  <Input OutputPathName="Kill Connection to <#=destDbName#>.Output" />
+						</Inputs>
+					  </PrecedenceConstraints>
+				
+				<DirectInput>
+					
+					<![CDATA[		
+					
+					        RESTORE DATABASE [<#=destDbName#>] 
+                            <#=fileGroups#>
+                            FROM DISK = '<#=destFilePathFull#>'
+
+							WITH 
+							<#=PartialOrFull#> 
+							REPLACE,
+							RECOVERY,  
+							<#=dataFiles#>
+
+;
+
+					]]>
+					
+				</DirectInput>
+			</ExecuteSQL>
+					 
+						
+				
+		   <ExecuteSQL Name="Set <#=destDbName#> Recovery Mode" ConnectionName="<#=destSrvr#>.master">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Restore <#=destDbName#>.Output"/>
+            </Inputs>
+          </PrecedenceConstraints>
+			   
+	
+          <DirectInput>
+			  
+			  	<![CDATA[	
+						
+						
+						
+						BEGIN
+							ALTER DATABASE <#=destDbName#>
+						         SET RECOVERY <#=recModeDest#> WITH NO_WAIT
+						END;
+				]]>
+			  
+       </DirectInput>
+        </ExecuteSQL>
+			  
+			  
+			  		     
+			
+			
+      
+        <FileSystem Name="Delete Source Bak File" Operation="DeleteFile">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Set <#=destDbName#> Recovery Mode.Output" EvaluationOperation="Expression" Expression="UPPER(@[User::DeleteBakFileOnSourceServer]) == UPPER(&quot;y&quot;)" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <VariableInput VariableName="User.FilePathBakFileSourceServer" />
+			  </FileSystem>
+			
+			     <FileSystem Name="Delete Destination Bak File" Operation="DeleteFile">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Set <#=destDbName#> Recovery Mode.Output" EvaluationOperation="Expression" Expression="UPPER( @[User::DeleteBakFileOnDestinationServer]  )  ==  UPPER( &quot;y&quot;)" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <VariableInput VariableName="User.FilePathFullBakFileDestinationServerRemoteAccess" />
+        </FileSystem>
+		  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			     <!--End of Specific task-->
+            
+           </Tasks>
+      
+      
+        </Container> 
+        
+        
+	 
+			  
+			        </Tasks>
+      
+      
+     		
+		</Package>
+			
+			
+		<#}#>
+		
+		
+		
+	</Packages>
+	
+	  
+	
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>

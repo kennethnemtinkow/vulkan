@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="02/11/2018 10:45:56" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="sql2016dev1" DTS:CreatorName="sql_dev_1_admin" DTS:DTSID="{DD1FF156-859D-4FBB-9362-CBDE2D41D157}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="Merge_VulkanDemoPartition_VulkanProd" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{E5A4FDB3-27F4-4690-AEE8-9E880B56E0C3}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{6E06C681-0A58-4799-BB76-FC7260DD535D}" DTS:ObjectName="10.0.0.5.VulkanProd" DTS:refId="Package.ConnectionManagers[10.0.0.5.VulkanProd]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=10.0.0.5;initial catalog=VulkanProd;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{7ADB5CE3-F1CA-42E4-B52E-941DD75B6BD7}" DTS:ObjectName="DBConnection.PartitionConfigServer" DTS:refId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=sql2016dev1;initial catalog=VulkanConfig;integrated security=SSPI;persist security info=False;provider=SQLOLEDB.1"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{CD40FC2D-752C-45FE-BDA1-3C1CAB9083CF}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="PartitionFunction">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DF0E741D-C45F-4143-AEBD-5006E9822330}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="Range">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{1B3335E9-4FF2-46AD-9384-674DE4187902}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="PartitionFunctionRangeForLoop">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6ACABE1A-0E53-4968-B727-E39D7DBF29B3}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="DropIndexScripts">
+      <DTS:VariableValue DTS:DataSubType="ManagedSerializable" DTS:DataType="13">
+        <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0">
+          <SOAP-ENV:Body>
+            <xsd:anyType id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{EF31EED8-D73B-442D-A558-0769997CC97A}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="CurrentDropIndexScript">
+      <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="STOCK:SEQUENCE" DTS:DTSID="{27B00F8E-8603-46BA-BA1F-EC89C3D59F59}" DTS:ExecutableType="STOCK:SEQUENCE" DTS:ExecValueType="303" DTS:LocaleID="-1" DTS:ObjectName="Pakkens innhold" DTS:refId="Package\Pakkens innhold">
+      <DTS:Executables>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{9CD98C14-5CE3-46A2-BD7C-DE808BCB1D15}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fill Drop Index Scripts Variable" DTS:refId="Package\Pakkens innhold\Fill Drop Index Scripts Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_Rowset" SQLTask:SqlStatementSource="&#xA;        &#xA;          DECLARE @SubSystem NVARCHAR(200)='VulkanDemoPartition'&#xA;       SELECT [DropIndexScript]&#xA;         FROM [vulkan].[NonClustedIndexProcessConfiguration]&#xA;       WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])&#xA;       AND SubSystemName = @SubSystem&#xA;       &#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::DropIndexScripts" SQLTask:ResultName="0"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="STOCK:FOREACHLOOP" DTS:DTSID="{3E4FF07F-1DFC-42AF-BACE-4C10FEB405B1}" DTS:ExecutableType="STOCK:FOREACHLOOP" DTS:LocaleID="-1" DTS:ObjectName="Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd">
+          <DTS:Executables>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{9BC2B662-3FF9-41CD-A77C-BF3DD91A7A1C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Drop Non-Clustered Index" DTS:refId="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd\Drop Non-Clustered Index" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="10.0.0.5.VulkanProd" SQLTask:SqlStatementSource="&#xA;     &#xA;               DECLARE @execSQL NVARCHAR(max) = ?&#xA;            EXEC sys.sp_executesql @execSQL&#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::CurrentDropIndexScript" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="-1"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachEnumerator DTS:CreationName="Microsoft.ForEachADOEnumerator" DTS:DTSID="{CDF67353-150E-4196-B3E1-43537ADA5AE8}" DTS:ObjectName="{CDF67353-150E-4196-B3E1-43537ADA5AE8}">
+            <DTS:ObjectData>
+              <FEEADO EnumType="EnumerateRowsInFirstTable" VarName="User::DropIndexScripts"></FEEADO>
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{806B8F56-A6D3-4B14-8BFB-4BB4316FA57B}" DTS:ObjectName="{806B8F56-A6D3-4B14-8BFB-4BB4316FA57B}" DTS:ValueIndex="0" DTS:VariableName="User::CurrentDropIndexScript"></DTS:ForEachVariableMapping>
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{76E3EEFB-1408-4BB9-B60F-C17FB0E55E20}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Fill PartitionFunctionRangeForLoop Variable" DTS:refId="Package\Pakkens innhold\Fill PartitionFunctionRangeForLoop Variable" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData SQLTask:Connection="DBConnection.PartitionConfigServer" SQLTask:ResultType="ResultSetType_Rowset" SQLTask:SqlStatementSource=" &#xA;      &#xA;         ;WITH BASE AS &#xA;&#xA;         ( &#xA;      &#xA;         SELECT  &#xA;      &#xA;         [PartitionFunction] ,[Range], CAST([Order] AS INT) AS [ORDER]&#xA;      &#xA;         FROM [vulkan].[MergeConfiguration]&#xA;&#xA;         WHERE Active = 'y' AND [DestinationDatabase] = 'VulkanProd'&#xA;      &#xA;         AND SubSystemName = 'VulkanDemoPartition'&#xA;&#xA;      )&#xA;&#xA;     SELECT [PartitionFunction] ,[Range]  FROM BASE&#xA;          ORDER BY [ORDER], PartitionFunction&#xA;     &#xA;     " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding SQLTask:DtsVariableName="User::PartitionFunctionRangeForLoop" SQLTask:ResultName="0"></SQLTask:ResultBinding>
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable DTS:CreationName="STOCK:FOREACHLOOP" DTS:DTSID="{9A632E25-17E1-4D9C-BA34-4F13626CC81B}" DTS:ExecutableType="STOCK:FOREACHLOOP" DTS:LocaleID="-1" DTS:ObjectName="Merge each Function and Range for database VulkanProd" DTS:refId="Package\Pakkens innhold\Merge each Function and Range for database VulkanProd">
+          <DTS:Executables>
+            <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{C28F2A2F-2613-4D69-A147-536394CB5495}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Merge Ranges" DTS:refId="Package\Pakkens innhold\Merge each Function and Range for database VulkanProd\Merge Ranges" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData SQLTask:Connection="10.0.0.5.VulkanProd" SQLTask:SqlStatementSource="&#xA;        &#xA;        DECLARE @Func NVARCHAR(100)=?&#xA;        DECLARE @Rang NVARCHAR(100)=?&#xA;        DECLARE @sql NVARCHAR(max)&#xA;&#xA;        SET @sql =&#xA;&#xA;        'ALTER PARTITION FUNCTION [' + @Func  + ']() &#xA;          MERGE RANGE (' + @Rang +'); &#xA;&#xA;        '&#xA;&#xA;        EXEC sp_executesql @sql&#xA;        &#xA;       " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::PartitionFunction" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="50"></SQLTask:ParameterBinding>
+                  <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::Range" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="50"></SQLTask:ParameterBinding>
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachEnumerator DTS:CreationName="Microsoft.ForEachADOEnumerator" DTS:DTSID="{AA82C442-1FD5-4BEB-81CB-DA479C7F271E}" DTS:ObjectName="{AA82C442-1FD5-4BEB-81CB-DA479C7F271E}">
+            <DTS:ObjectData>
+              <FEEADO EnumType="EnumerateRowsInFirstTable" VarName="User::PartitionFunctionRangeForLoop"></FEEADO>
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{04F18111-DEA3-4FE6-BC6E-1A51C12B9FA1}" DTS:ObjectName="{04F18111-DEA3-4FE6-BC6E-1A51C12B9FA1}" DTS:ValueIndex="0" DTS:VariableName="User::PartitionFunction"></DTS:ForEachVariableMapping>
+            <DTS:ForEachVariableMapping DTS:CreationName="" DTS:DTSID="{DD6FE8E8-5844-4116-AC76-EBC51844C302}" DTS:ObjectName="{DD6FE8E8-5844-4116-AC76-EBC51844C302}" DTS:ValueIndex="1" DTS:VariableName="User::Range"></DTS:ForEachVariableMapping>
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{6FE3FACF-4796-43C0-9F53-B17646B6BA8F}" DTS:From="Package\Pakkens innhold\Fill Drop Index Scripts Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Drop Index Scripts Variable_To_Drop Each NonClustered Index on Partitioned Tables On VulkanProd]" DTS:To="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{F6511C3B-5F3B-4C7B-AF30-35C66E03C5B9}" DTS:From="Package\Pakkens innhold\Drop Each NonClustered Index on Partitioned Tables On VulkanProd" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Fill PartitionFunctionRangeForLoop Variable" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Drop Each NonClustered Index on Partitioned Tables On VulkanProd_To_Fill PartitionFunctionRangeForLoop Variable]" DTS:To="Package\Pakkens innhold\Fill PartitionFunctionRangeForLoop Variable"></DTS:PrecedenceConstraint>
+        <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{501FFE83-04F9-4AD4-9067-30D2771A75E3}" DTS:From="Package\Pakkens innhold\Fill PartitionFunctionRangeForLoop Variable" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Fill PartitionFunctionRangeForLoop Variable_To_Merge each Function and Range for database VulkanProd" DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill PartitionFunctionRangeForLoop Variable_To_Merge each Function and Range for database VulkanProd]" DTS:To="Package\Pakkens innhold\Merge each Function and Range for database VulkanProd"></DTS:PrecedenceConstraint>
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

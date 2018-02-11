@@ -1,0 +1,310 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/11/2018 11:15:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="sql2016dev1"
+  DTS:CreatorName="sql_dev_1_admin"
+  DTS:DTSID="{FF82130E-FFD8-48AF-8035-642B3B589A5A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PostProcess_VulkanDemoPartition_VulkanProd"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{078BC1B4-8460-4B05-93CE-5D8A388366C6}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.0.0.5.VulkanProd]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{62B265C5-F57C-4BBF-96D7-0C098EA860B4}"
+      DTS:ObjectName="10.0.0.5.VulkanProd">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=10.0.0.5;initial catalog=VulkanProd;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DBConnection.PartitionConfigServer]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CFA19EAE-AD24-4965-B131-A103AFCC4654}"
+      DTS:ObjectName="DBConnection.PartitionConfigServer">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=sql2016dev1;Initial Catalog=VulkanConfig;Provider=SQLOLEDB.1;Persist Security Info=False;Integrated Security=SSPI;Application Name=SSIS-PostProcess_VulkanDemoPartition_VulkanProd-{CFA19EAE-AD24-4965-B131-A103AFCC4654}DBConnection.PartitionConfigServer;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78C629E2-7F9C-4307-9535-17F6BB80CA10}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CreateIndexScripts">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{15AFCD5D-4F8F-49CC-B23E-AAC5CBE8811D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentCreateIndexScript">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{902E710A-E641-42FB-9127-424A0FB28EF9}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentTable">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BB56C346-32D7-4B94-BE15-8FDE996F63B4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DestinationDatabase">
+      <DTS:VariableValue
+        DTS:DataType="8">VulkanProd</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{91C07235-C721-413B-9F5D-E5FEA341348B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DestinationServer">
+      <DTS:VariableValue
+        DTS:DataType="8">10.0.0.5</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AB070F9C-7418-4EAF-B7B5-FEB2898B46FA}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RunDate">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A6C7D487-CA37-424A-BA9C-52BF7D859477}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceDatabase">
+      <DTS:VariableValue
+        DTS:DataType="8">VulkanProd</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9362A294-2F56-480B-8A36-C6AAF2E0584F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceServer">
+      <DTS:VariableValue
+        DTS:DataType="8">sql2016dev1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{189BFF5C-E908-4317-BDDF-20998F016347}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SubSystem">
+      <DTS:VariableValue
+        DTS:DataType="8">VulkanDemoPartition</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C07545A2-64C6-48BB-8028-94B811915BB2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Tables">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Pakkens innhold"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:DTSID="{1E827759-E26D-456E-9E36-C0330A2D3D03}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Pakkens innhold">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Create Each NonClustered Index on Partitioned Tables On VulkanProd"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:DTSID="{F04156C4-18DC-4C97-805F-04B48E5378C8}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Each NonClustered Index on Partitioned Tables On VulkanProd">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{741FB90D-C224-4550-89C0-78C94DA66A47}"
+            DTS:ObjectName="{741FB90D-C224-4550-89C0-78C94DA66A47}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateRowsInFirstTable"
+                VarName="User::CreateIndexScripts" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Pakkens innhold\Create Each NonClustered Index on Partitioned Tables On VulkanProd\Create Non-Clustered Index on 10_0_0_5_VulkanProd"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:DTSID="{26344F74-C148-4051-A236-EC7BCF69A0EA}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Create Non-Clustered Index on 10_0_0_5_VulkanProd"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{62B265C5-F57C-4BBF-96D7-0C098EA860B4}"
+                  SQLTask:SqlStatementSource="&#xA;     &#xA;              DECLARE @execSQL NVARCHAR(max) = ?&#xA;            EXEC sys.sp_executesql @execSQL&#xA;    " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::CurrentCreateIndexScript"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="-1" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{76F7C1B3-D965-466A-BF1B-53B0FFBB4D0A}"
+              DTS:ObjectName="{76F7C1B3-D965-466A-BF1B-53B0FFBB4D0A}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::CurrentCreateIndexScript" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Pakkens innhold\Fill Create Index Scripts Variable"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DTSID="{30C0DB4E-D8D3-43BF-8078-BFBAC1117031}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Fill Create Index Scripts Variable"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{CFA19EAE-AD24-4965-B131-A103AFCC4654}"
+              SQLTask:SqlStatementSource="&#xA;        &#xA;          DECLARE @SubSystem NVARCHAR(200)='VulkanDemoPartition'&#xA;       SELECT [CreateIndexScript]&#xA;         FROM [vulkan].[NonClustedIndexProcessConfiguration]&#xA;       WHERE RunDate = (SELECT MAX(RunDate) FROM [vulkan].[NonClustedIndexProcessConfiguration])&#xA;       AND SubSystemName = @SubSystem&#xA;       &#xA;       "
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::CreateIndexScripts" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Create Index Scripts Variable_To_Create Each NonClustered Index on Partitioned Tables On VulkanProd]"
+          DTS:CreationName=""
+          DTS:DTSID="{60B6F0D7-8F19-475D-BF78-9BB4509F127C}"
+          DTS:From="Package\Pakkens innhold\Fill Create Index Scripts Variable"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Fill Create Index Scripts Variable_To_Create Each NonClustered Index on Partitioned Tables On VulkanProd"
+          DTS:To="Package\Pakkens innhold\Create Each NonClustered Index on Partitioned Tables On VulkanProd" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="333.6,41.6"
+          Id="Package\Pakkens innhold\Create Each NonClustered Index on Partitioned Tables On VulkanProd\Create Non-Clustered Index on 10_0_0_5_VulkanProd"
+          TopLeft="5.5,5.50000000000007" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="344.8,102"
+          Size="344.8,145.2"
+          Id="Package\Pakkens innhold\Create Each NonClustered Index on Partitioned Tables On VulkanProd"
+          TopLeft="5.50000000000003,107.1" />
+        <NodeLayout
+          Size="231.2,41.6"
+          Id="Package\Pakkens innhold\Fill Create Index Scripts Variable"
+          TopLeft="62.3,5.50000000000007" />
+        <EdgeLayout
+          Id="Package\Pakkens innhold.PrecedenceConstraints[Constraint_Fill Create Index Scripts Variable_To_Create Each NonClustered Index on Partitioned Tables On VulkanProd]"
+          TopLeft="177.9,47.1000000000001">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="356,307.2"
+          Size="356,350.4"
+          Id="Package\Pakkens innhold"
+          TopLeft="5.50000000000006,5.50000000000006" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
